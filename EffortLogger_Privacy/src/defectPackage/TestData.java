@@ -1,5 +1,6 @@
 package defectPackage;
 
+
 /**
  * @author Jay Patel
  * TestData contains a test set of data for DefectConsole's prototype.
@@ -8,16 +9,16 @@ public class TestData {
 
     /** Class Instance Variables **/
     private String projectName;
-    private String DefectName;
-    private String Description;
+    private String defectName;
+    private String description;
 
     /**
      * Default Constructor: Initializes instance variables
      */
     public TestData() {
         projectName = "TestProject01";
-        DefectName = "TestDefect01";
-        Description = "TestDescription";
+        defectName = "TestDefect01";
+        description = "TestDescription";
     }
 
     /**
@@ -40,7 +41,7 @@ public class TestData {
      * Method: setDefectName(String dName)
      */
     public void setDefectName(String dName) {
-        DefectName = dName;
+        defectName = dName;
     }
 
     /**
@@ -48,7 +49,7 @@ public class TestData {
      * Returns the defect name
      */
     public String getDefectName() {
-        return DefectName;
+        return defectName;
     }
 
     /**
@@ -56,6 +57,14 @@ public class TestData {
      * @param desc - Contains string that description will be set to
      */
     public void setDescription(String desc) {
-        Description = desc;
+        description = desc;
+    }
+
+    /**
+     * Method: setDescription(String desc)
+     * Returns defect description
+     */
+    public String getDescription() {
+        return description;
     }
 }

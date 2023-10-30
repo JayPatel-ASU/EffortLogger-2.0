@@ -17,7 +17,7 @@ public class Log {
 	String lifeCycle;
 	String category;
 	String etc;
-	
+
 	/**
 	 * Basic setter constructor
 	 */
@@ -32,7 +32,7 @@ public class Log {
 		this.category = category;
 		this.etc = etc;
 	}
-	
+
 	/**
 	 * @param log - array of textfields that store the information the log needs in order
 	 * Setter constructor that sets the information from the textfield array of user inputs.

@@ -15,14 +15,14 @@ import javafx.scene.control.TextField;
  * Useful for ones that might need to be reused or are lengthy
  */
 public class ListenerGenerator {
-	
-	
+
+
 	/**
 	 * @param managerView - manager view of logs
 	 * @return listener that toggles names on click
 	 */
 	public static ChangeListener<Boolean> viewNamesListener(ManagerView managerView) {
-		return new ChangeListener<Boolean>() {
+		return new ChangeListener<>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable,
 					Boolean oldValue, Boolean newValue) {
@@ -30,13 +30,13 @@ public class ListenerGenerator {
 			}
 		};
 	}
-	
+
 	/**
 	 * @param text - text box to make numerical inputs only
 	 * @return listener that forces a textbox to accept numerical inputs only
 	 */
 	public static ChangeListener<String> numberTextListener(TextField text) {
-		return new ChangeListener<String> () {
+		return new ChangeListener<> () {
 			@Override
 			public void changed(ObservableValue<? extends String> observable,
 					String oldValue, String newValue) {
@@ -47,20 +47,20 @@ public class ListenerGenerator {
 			}
 		};
 	}
-	
+
 	/**
 	 * @param managerView - manager view of logs
 	 * @return listener that calls the resetdata function when clicked
 	 */
 	public static EventHandler<ActionEvent> clearDataListener(ManagerView managerView) {
-		return new EventHandler<ActionEvent>() {
+		return new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent e) {
 				managerView.resetData();
 			}
 		};
 	}
-	
+
 	/**
 	 * @param managerView - manager view of logs
 	 * @param boxes - array of all checkbox config options to the add function
@@ -69,7 +69,7 @@ public class ListenerGenerator {
 	 * @return listener that takes all relevant info from the application and sends it to the manager view
 	 */
 	public static EventHandler<ActionEvent> addDataListener(ManagerView managerView, CheckBox[] boxes, TextField[] texts, TextField[] inputData) {
-		return new EventHandler<ActionEvent>() {
+		return new EventHandler<>() {
 			@Override
 			public void handle(ActionEvent e) {
 				//Initializing important variables using the inputs

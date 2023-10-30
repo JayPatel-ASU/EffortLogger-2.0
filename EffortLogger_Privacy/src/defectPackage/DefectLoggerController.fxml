@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="489.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.effortlogger.defectconsole.DefectLoggerController">
+<AnchorPane prefHeight="489.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defectPackage.DefectLoggerController">
    <children>
       <Label layoutX="31.0" layoutY="68.0" text="1. Select the Project">
          <font>

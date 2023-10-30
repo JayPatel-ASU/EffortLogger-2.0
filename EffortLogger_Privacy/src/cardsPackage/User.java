@@ -2,7 +2,7 @@ package cardsPackage;
 
 
 public class User {
-    
+
     // Enum definitions
     public enum Role {
         HOST, PARTICIPANT
@@ -12,14 +12,14 @@ public class User {
     public enum Status {
         WAITING, SELECTED, CONFIRMED
     }
-	
+
     // Attributes
     private String userId;
     private String userName;
     private Card selectedCard;
-    private Role role;  
-    private Status status;  
-    
+    private Role role;
+    private Status status;
+
     // Constructor
     public User(String userId, String userName, Role role) {
         this.userId = userId;
@@ -28,9 +28,9 @@ public class User {
         this.selectedCard = null; // Initially no card is selected
         status = Status.WAITING;
     }
-	
+
     // *********** METHODS ************************************
-    
+
     public void selectCard(Card card) {
     	// If selection is already confirmed, cant change selection
     	if (status != Status.CONFIRMED) {
@@ -38,28 +38,28 @@ public class User {
     		status = Status.SELECTED; // Change status of user accordingly
     	}
     }
-    
+
     public void confirmCard() {
     	if (status == Status.SELECTED) {
     		status = Status.CONFIRMED;
     	}
     }
-    
+
     public void reset() {
     	selectedCard = null;
     	status = Status.WAITING;
     }
-    
-	
+
+
     // ************** GETTERS AND SETTERS *************************
     public String getUserId() {
         return userId;
     }
-	
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
-	
+
     public String getUserName() {
         return userName;
     }
@@ -71,11 +71,11 @@ public class User {
     public Card getSelectedCard() {
     	return selectedCard;
     }
-    
+
     public void setSelectedCard(Card card) {
     	this.selectedCard = card;
     }
-    
+
     public Role getRole() {
         return role;
     }
@@ -93,5 +93,5 @@ public class User {
     }
 
 
-    
+
 }

@@ -15,13 +15,13 @@ import javafx.scene.text.Text;
  * Used to initialize an instance of the pane
  */
 public class PrivacyPane extends HBox {
-	ManagerView managerView;
-	TextField[] inputData;
-	TextField[] texts;
-	CheckBox[] boxes;
-	Button sendData;
-	Button clearData;
-	
+	private ManagerView managerView;
+	private TextField[] inputData;
+	private TextField[] texts;
+	private CheckBox[] boxes;
+	private Button sendData;
+	private Button clearData;
+
 	/**
 	 * Constructor, contains all the functionality for the class
 	 */
@@ -73,7 +73,7 @@ public class PrivacyPane extends HBox {
 		userConfig.getChildren().add(boxes[0]);
 		userConfig.getChildren().add(new Label("More Settings To Be Implemented Later"));
 		userBox.getChildren().add(userConfig);
-		
+
 		// Debug box, which is used for sending data and is located in the middle
 		VBox debugBox = new VBox();
 		VBox debugSettings = new VBox();
@@ -111,11 +111,11 @@ public class PrivacyPane extends HBox {
 		boxes[2] = new CheckBox("Randomize Data");
 		debugConfig.getChildren().add(boxes[2]);
 		debugBox.getChildren().add(debugConfig);
-		
+
 		// Manager section, implements the managerview and is located on the right
 		VBox managerBox = new VBox();
 		managerBox.getChildren().add(managerView);
-		
+
 		// Setting spacing for the user area
 		userData.setVgap(4);
 		userConfig.setSpacing(4);

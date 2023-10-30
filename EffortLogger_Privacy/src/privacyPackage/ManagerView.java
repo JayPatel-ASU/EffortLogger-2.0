@@ -11,10 +11,9 @@ import javafx.scene.text.Text;
  * GridPane that represents the manager's view of data as a table. Includes functionality like hiding and refreshing data.
  */
 public class ManagerView extends GridPane {
-	ArrayList<Log> logList;
-	int threshold;
-	boolean displayNames;
-	
+	private ArrayList<Log> logList;
+	private boolean displayNames;
+
 	/**
 	 * Constructor that intiializes the title and top row of the table, as well as spacing
 	 */
@@ -34,11 +33,10 @@ public class ManagerView extends GridPane {
 		this.add(new Text("Deliverable / Interruption / etc."), 8, 1);
 		this.setHgap(15);
 		this.setVgap(4);
-		this.threshold = 0;
-		this.logList = new ArrayList<Log>();
+		this.logList = new ArrayList<>();
 		this.displayNames = true;
 	}
-	
+
 	/**
 	 * @param log - text fields that represent the log
 	 * @param threshold - threshold to start displaying items
@@ -48,7 +46,7 @@ public class ManagerView extends GridPane {
 	public void addLog(TextField[] log, int threshold, boolean hideName) {
 		addLog(new Log(log), threshold, hideName);
 	}
-	
+
 	/**
 	 * @param log - text fields that represent the log
 	 * @param threshold - threshold to start displaying items
@@ -56,7 +54,6 @@ public class ManagerView extends GridPane {
 	 * Adds the log to the list and either updates or clears the table depending on visibility threshold
 	 */
 	public void addLog(Log log, int threshold, boolean hideName) {
-		this.threshold = threshold;
 		if(hideName) {
 			log.name = "N/A";
 		}
@@ -67,7 +64,7 @@ public class ManagerView extends GridPane {
 			clearAll();
 		}
 	}
-	
+
 	/**
 	 * Clears both arraylist and data, resetting the data
 	 */
@@ -75,7 +72,7 @@ public class ManagerView extends GridPane {
 		logList.clear();
 		clearAll();
 	}
-	
+
 	/**
 	 * Toggles the name visibility and refreshes the table
 	 * Could be made more efficient by only changing names, but I haven't been able to do that ye
@@ -91,7 +88,7 @@ public class ManagerView extends GridPane {
 			showAll();
 		}
 	}
-	
+
 	/**
 	 * Displays data in the table from the arraylist,
 	 * clearing it beforehand
@@ -115,7 +112,7 @@ public class ManagerView extends GridPane {
 			this.add(new Text(current.etc), 8, i+2);
 		}
 	}
-	
+
 	/**
 	 * Clears the table, keeping just the title and top row.
 	 */

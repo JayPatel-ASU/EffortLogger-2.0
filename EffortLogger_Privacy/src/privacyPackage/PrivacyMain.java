@@ -6,11 +6,10 @@ import javafx.stage.Stage;
 
 /**
  * @author Raeed Azom
- * 
  * The implementation class for the PrivacyPane class, puts the pane into a scene and runs it for testing.
  */
-public class GUIHandler extends Application {
-		
+public class PrivacyMain extends Application {
+
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		// Basic stage and scene setup and running
@@ -19,7 +18,7 @@ public class GUIHandler extends Application {
 		mainStage.setScene(mainScene);
 		mainStage.show();
 	}
-		
+
 	public static void main(String[] args) {
 		// Runs GUI application
 		launch(args);
