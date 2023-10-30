@@ -9,18 +9,18 @@ import java.util.HashMap;
 public class Session {
 	
 	//Enum definitions
-	public enum Status {
+	public enum SessionStatus {
 		WAITING, REVEALING, COMPLETED
 	}
 	
 	// Attributes
 	private String sessionId;
-	private Topic currentTopic; // Topic that participants will be voting on
+	private UserStory currentTopic; // Topic that participants will be voting on
 	private List<User> participants; // List of participants in the session
 	private User host; // User that created the session. Might have access to session settings and such
-	private Status sessionState; // Players are voting, cards are being revealed, reveal/discussion is complete, etc.
+	private SessionStatus sessionState; // Players are voting, cards are being revealed, reveal/discussion is complete, etc.
 	private Timer currentTime; // Timer could be used for voting, discussion time, etc.
-	private List<Topic> topicsQueue; // List of topics that will be addressed during the session
+	private List<UserStory> storyQueue; // List of topics that will be addressed during the session
 	private List<Card> cardDeck; // Deck of estimations that all users will be choosing from
 	
 
@@ -28,18 +28,18 @@ public class Session {
 	public Session(String sessionId, User host, List<Card> cardDeck) {
 		this.sessionId = sessionId;
 		this.host = host;
-		this.sessionState = Status.WAITING; // set to WAITING initially
+		this.sessionState = SessionStatus.WAITING; // set to WAITING initially
 		
 		// Initialize lists
 		this.participants = new ArrayList<>();
-		this.topicsQueue = new ArrayList<>();
+		this.storyQueue = new ArrayList<>();
 		this.cardDeck = cardDeck;
 		addParticipant(host);
 	}
 	
 	public void Update() {
 		if (allUsersConfirmed() == true) {
-			sessionState = Status.REVEALING;
+			sessionState = SessionStatus.REVEALING;
 		}
 	}
 	
@@ -64,17 +64,15 @@ public class Session {
 		return cards;
 	}
 	
-	public void addTopic(Topic topic) {
-		topicsQueue.add(topic);
+	public void addStory(UserStory userStory) {
+		storyQueue.add(userStory);
 	}
 	
 	// Pop the first topic from the queue
-	public Topic popTopic() {
-		if (topicsQueue.isEmpty()) {
-			return null; //Return null if list is empty
+	public void popTopic() {
+		if (!storyQueue.isEmpty()) {
+			currentTopic = storyQueue.remove(0);
 		}
-		currentTopic = topicsQueue.remove(0);
-		return currentTopic; // Remove the first topic and return it
 	}
 	
 	public void revote() {
@@ -175,9 +173,9 @@ public class Session {
 	}
 	
 	// Remove a topic from the queue
-	public void removeFromQueue(Topic topic) {
-		if (topicsQueue != null && topic != null) {
-			topicsQueue.remove(topic);
+	public void removeFromQueue(UserStory userStory) {
+		if (storyQueue != null && userStory != null) {
+			storyQueue.remove(userStory);
 		}
 	}
 	
@@ -190,11 +188,11 @@ public class Session {
         this.sessionId = sessionId;
     }
 
-    public Topic getCurrentTopic() {
+    public UserStory getCurrentStory() {
         return currentTopic;
     }
 
-    public void setCurrentTopic(Topic currentTopic) {
+    public void setCurrentStory(UserStory currentTopic) {
         this.currentTopic = currentTopic;
     }
 
@@ -214,11 +212,11 @@ public class Session {
         this.host = host;
     }
 
-    public Status getSessionState() {
+    public SessionStatus getSessionState() {
         return sessionState;
     }
 
-    public void setSessionState(Status sessionState) {
+    public void setSessionState(SessionStatus sessionState) {
         this.sessionState = sessionState;
     }
 
@@ -230,11 +228,19 @@ public class Session {
         this.currentTime = currentTime;
     }
 
-    public List<Topic> getTopicsQueue() {
-        return topicsQueue;
+    public List<UserStory> getStoryQueue() {
+        return storyQueue;
     }
 
-    public void setTopicsQueue(List<Topic> topicsQueue) {
-        this.topicsQueue = topicsQueue;
+    public void setStoryQueue(List<UserStory> storyQueue) {
+        this.storyQueue = storyQueue;
+    }
+    
+    public List<Card> getCardDeck() {
+    	return cardDeck;
+    }
+    
+    public void setCardDeck(List<Card> cardDeck) {
+    	this.cardDeck = cardDeck;
     }
 }
