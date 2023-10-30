@@ -1,4 +1,5 @@
-package application;
+package cardsPackage;
+
 	
 import java.util.ArrayList;
 import java.util.Arrays;
