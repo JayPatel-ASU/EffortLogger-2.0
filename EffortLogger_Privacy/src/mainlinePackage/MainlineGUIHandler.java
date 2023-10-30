@@ -19,9 +19,13 @@ import privacyPackage.PrivacyPane;
 public class MainlineGUIHandler extends Application {
 	TabPane tabPane;
 
+	/**
+	 * Main start function, sets up all tabs and runs them
+	 */
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		tabPane = new TabPane();
+		// Initialization of each prototype scene, they are then loaded onto tabs
 		PlanningPokerExport ppExp = new PlanningPokerExport();
 		EffortLoggerExport elExp = new EffortLoggerExport();
 		DefectLoggerExport dlExp = new DefectLoggerExport();
@@ -34,12 +38,14 @@ public class MainlineGUIHandler extends Application {
 		Tab tab3 = new Tab("EffortLogger", effortLogger);
 		Tab tab4 = new Tab("DefectLogger", defectLogger);
 		tabPane.getTabs().addAll(tab1, tab2, tab3, tab4);
+		// Setting up formatting through spaces and anchorpane
 		AnchorPane pane = new AnchorPane();
 		AnchorPane.setTopAnchor(tabPane, 15.0);
 		AnchorPane.setBottomAnchor(tabPane, 15.0);
 		AnchorPane.setRightAnchor(tabPane, 15.0);
 		AnchorPane.setLeftAnchor(tabPane, 15.0);
 		pane.getChildren().addAll(tabPane);
+		// Show scene
 		Scene scene = new Scene(pane, 1500, 750);
 		mainStage.setScene(scene);
 		mainStage.show();
