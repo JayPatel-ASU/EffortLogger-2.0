@@ -75,14 +75,11 @@ public class Main extends Application {
 				"Creating backend",
 				"Java, DataBase, UML");
 		UserStory story2 = new UserStory(
-				"Implementing backend code into JavaFX",
-				"After successfully testing funcionality of the backend code,"
-				+"\nWe will start implementing a UI for the code in JavaFX");
+				"Implementing JavaFX",
+				"JavaFX, UI");
 		UserStory story3 = new UserStory(
-				"Integration with team's prototypes",
-				"After successfully finished the development of the individual"
-				+"\nprototypes, we will collaborate and integrate all our code"
-				+"\ninto one singular deliverable application");						
+				"Merging Prototypes",
+				"Merge, Compatability");						
 				
 		// ****** SESSION CREATION ***************************
 				

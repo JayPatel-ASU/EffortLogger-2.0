@@ -125,6 +125,8 @@ public class PlanningPokerController {
 	private Label medianLabel;
 	@FXML
 	private Label highestLabel;
+	@FXML
+	private Button revealAction1;
 	
 	// ****** METHODS *********
 	
@@ -293,17 +295,47 @@ public class PlanningPokerController {
 			medianLabel.setText("Median: " + session.calculateMedian(results));
 			highestLabel.setText("Highest Frequency: " + session.mostCommonValue(results));
 			resultsLabel.setText("Results:");
+		} else {
+			averageLabel.setText("Average: ...");
+			medianLabel.setText("Median: ...");
+			highestLabel.setText("Highest Frequency: ...");
+			resultsLabel.setText("Waiting for Results...");
+		}
+		session.setSessionState(SessionStatus.COMPLETED);
+	}
+	
+	// ********** POST RESULTS BUTTONS ***********
+	
+	// Next topic
+	@FXML
+	protected void action1() {
+		if (session.getSessionState() == SessionStatus.COMPLETED) {
+			session.reset();
+			session.popTopic();
+			Update();
+		}
+	}
+	
+	// Revote
+	@FXML
+	protected void action2() {
+		if (session.getSessionState() == SessionStatus.COMPLETED) {
+			session.reset();
+			Update();
 		}
 	}
 	
 	// Sets up all the labels
 	public void initialize() {
+		System.out.println(session.getSessionState());
+
 		if(session != null) {
-			
+			session.setSessionState(SessionStatus.WAITING);
 			session.popTopic(); // Set current topic from queue
 			updateSelection();
 			updateConfirmedSelection();
 			updateVotingLabel();
+			//updateResults();
 			userNameLabel.setText(session.getHost().getUserName());
 			
 			// Setting current story and description
@@ -311,6 +343,8 @@ public class PlanningPokerController {
 				titleLabel.setText(session.getCurrentStory().getTitle());
 				descriptionLabel.setText(session.getCurrentStory().getDescription());
 			}
+			System.out.println(session.getSessionState());
+
 		}
 	}
 	
@@ -321,11 +355,11 @@ public class PlanningPokerController {
 				titleLabel.setText(session.getCurrentStory().getTitle());
 				descriptionLabel.setText(session.getCurrentStory().getDescription());
 			}
-			if(session.getHost().getSelectedCard() != null) {
-				//selectedCard.setText(Double.toString(session.getHost().getSelectedCard().getValue()));
-			}
-			System.out.println("TEST");
+			updateSelection();
+			updateConfirmedSelection();
+			updateVotingLabel();
+			//updateResults();
 		}
-		System.out.println("Another test");
+		System.out.println(session.getSessionState());
 	}
 }

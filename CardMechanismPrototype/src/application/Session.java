@@ -3,6 +3,9 @@ package application;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import application.User.Status;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -75,14 +78,12 @@ public class Session {
 		}
 	}
 	
-	public void revote() {
-		
-	}
-	
+	// Resets all users selections and sets status to WAITING
 	public void reset() {
 		for (User participant : participants) {
 			participant.reset();
 		}
+		sessionState = SessionStatus.WAITING;
 	}
 	
 	public boolean allUsersConfirmed() {
