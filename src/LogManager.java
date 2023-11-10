@@ -1,6 +1,6 @@
 /**
  * LogManager
- * Description: TODO
+ * Description: Class that interacts with effortlogs.csv and definitions.ini
  * Author: Jay Patel
  */
 
@@ -10,19 +10,20 @@ import java.util.ArrayList;
 public class LogManager {
 
     /** Private Class Variables **/
-    private final String filename = "effortlogs.csv";
+    private final String LOGFILE = "effortlogs.csv";
+    private final String DEFINITIONSFILE = "definitions.ini";
     private File file;
     private BufferedReader reader;
     private BufferedWriter writer;
 
     /**
      * Parameterized Constructor
-     * @param Data - TODO
-     * @throws IOException - TODO
+     * @param Data - Object that contains effortLog/definition data
+     * @throws IOException - Outputs an error if a file w/ the specified pathname doesn't exist
      */
     public LogManager(Data Data) throws IOException {
         // Instantiate file object
-        file = new File(filename);
+        file = new File(LOGFILE);
 
         // If logfile doesn't exist, initialize file
         if (!checkFile()) {
@@ -30,10 +31,11 @@ public class LogManager {
             initializeFile();
         }
 
-        // TODO - Load definitions
+        // Read data from definitions, store info in Data class
+        parseDefinitions(Data);
 
         // Read from logfile, store info in Data class
-        parseData(Data);
+        parseLogData(Data);
     }
 
     /** Method Declarations **/
@@ -63,7 +65,7 @@ public class LogManager {
     private void initializeFile() throws IOException {
 
         // Init bufferedWriter object
-        writer = new BufferedWriter(new FileWriter(filename, true));
+        writer = new BufferedWriter(new FileWriter(LOGFILE, true));
         // Counter for # of projects (MAX: 10)
         int projectCounter = 1;
 
@@ -94,32 +96,32 @@ public class LogManager {
             else {
                 writer.write(emptyLine);
             }
-            writer.newLine();
+            writer.newLine(); // Get next line
         }
         writer.close(); // Close file
     }
 
     /**
-     *
-     * @param newLog
+     * updateLog(int, ArrayList<String>)
+     * @param newLog TODO UPDATE COMMENT
      */
     public void updateLog(int projectNum, ArrayList<String> newLog) throws IOException{
-        //TODO - FINISH
+        //TODO - FINISH METHOD
         int startPosition = (projectNum - 1) * 1000;
-        writer = new BufferedWriter(new FileWriter(filename, true));
+        writer = new BufferedWriter(new FileWriter(LOGFILE, true));
 
         writer.close();
     }
 
     /**
-     * parseData()
+     * parseLogData(Data)
      * Description: Parses data from effortlogs.csv and stores it in the Data object
      * @param Data - Object that contains effort data
      * @throws IOException - Exception thrown if file does not exist in directory
      */
-    public void parseData(Data Data) throws IOException{
+    public void parseLogData(Data Data) throws IOException{
 
-        reader = new BufferedReader(new FileReader(filename)); // Instantiate new reader object
+        reader = new BufferedReader(new FileReader(LOGFILE)); // Instantiate new reader object
         int projectCounter = 0; // Keeps track of # of projects
 
         // Loop through every line in .csv file
@@ -141,6 +143,39 @@ public class LogManager {
             }
             // Store line into data
             Data.storeLogData(projectCounter - 1 , currentLine);
+        }
+        reader.close(); // Done reading from file, close reader
+    }
+
+    /**
+     * parseDefinitions(Data)
+     * Description: Parses data from definitions.ini and stores it in the Data object
+     * @param Data - Object that definition data will be stored to
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
+    public void parseDefinitions(Data Data) throws IOException{
+        reader = new BufferedReader(new FileReader(DEFINITIONSFILE)); // Instantiate new reader object
+        int categoryNum = 0; // Tracks project number to update
+        String currentLine = reader.readLine();
+
+        // Keep reading until end of file has been reached
+        while (currentLine != null) {
+
+            // If the current line has a data element to store
+            if (currentLine.contains(" =")) {
+                // If the line contains 01, we know it's the data for a new definition category
+                if (currentLine.contains("01"))
+                    categoryNum++;
+
+                // Create substring of data, then store into Definitions array
+                currentLine = currentLine.substring(currentLine.indexOf("=") + 1);
+
+                // If data isn't empty, store in definitions array
+                if (!currentLine.equals(""))
+                    Data.storeDefinitionData(categoryNum - 1, currentLine);
+            }
+            // Get next line
+            currentLine = reader.readLine();
         }
         reader.close(); // Done reading from file, close reader
     }
