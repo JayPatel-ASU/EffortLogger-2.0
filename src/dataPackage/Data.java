@@ -1,3 +1,5 @@
+package dataPackage;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,8 @@ import java.util.ArrayList;
 
 public class Data {
 
-    private final int PROJECTCOUNT = 10;
+    /** Private Class Variables **/
+
     private ArrayList<ArrayList<String>> logData;
     private ArrayList<ArrayList<String>> definitions;
 
@@ -20,16 +23,18 @@ public class Data {
         initializeDefArray();
     }
 
+    /** Method Declarations **/
+
     /**
      * initializeLogArray()
      * Description: Allocates memory for log data array. Used in constructor
      */
     private void initializeLogArray() {
         // Init 1st dimension of array (size 10)
-        logData = new ArrayList<>(PROJECTCOUNT);
+        logData = new ArrayList<>(10);
 
         // Initialize 2nd dimension of each index
-        for (int i = 0; i < PROJECTCOUNT; i++) {
+        for (int i = 0; i < 10; i++) {
             logData.add(new ArrayList<>());
         }
     }
@@ -83,25 +88,30 @@ public class Data {
     }
 
     /**
-     *
-     * Description:
-     * @param projectNum
-     * @param currentLine
+     * storeDefinitionData(int, String)
+     * Description: Stores definition data for each specified category in definitions.ini
+     * @param category - Int containing which category to store data to
+     * @param currentLine - String containing the current line of data
      */
-    public void storeDefinitionData(int projectNum, String currentLine) {
-        definitions.get(projectNum).add(currentLine);
+    public void storeDefinitionData(int category, String currentLine) {
+        definitions.get(category).add(currentLine);
     }
+
     /**
-     *
-     * @param projectNum
-     * @return
+     * getLogData(int)
+     * @param projectNum -
+     * @return -
      */
-    //public ArrayList<String> getLogData(int projectNum){
+    /*
+    public ArrayList<String> getLogData(int projectNum){
 
-    //}
+        // Set size of return list
+        ArrayList<String> returnArr = new ArrayList<>(logData.size());
+
+    }*/
 
     /**
-     * TODO
+     * TODO REMOVE PRINT FUNCTIONS
      */
     void printLogData() {
         for (int i = 0; i < logData.size(); i++) {

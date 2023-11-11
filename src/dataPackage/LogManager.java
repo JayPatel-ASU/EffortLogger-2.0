@@ -1,11 +1,13 @@
+package dataPackage;
+
+import java.io.*;
+import java.util.ArrayList;
+
 /**
  * LogManager
  * Description: Class that interacts with effortlogs.csv and definitions.ini
  * Author: Jay Patel
  */
-
-import java.io.*;
-import java.util.ArrayList;
 
 public class LogManager {
 
@@ -171,7 +173,7 @@ public class LogManager {
                 currentLine = currentLine.substring(currentLine.indexOf("=") + 1);
 
                 // If data isn't empty, store in definitions array
-                if (!currentLine.equals(""))
+                if (!currentLine.isEmpty())
                     Data.storeDefinitionData(categoryNum - 1, currentLine);
             }
             // Get next line

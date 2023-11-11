@@ -1,5 +1,6 @@
 package mainlinePackage;
 
+import dataPackage.*;
 import cardsPackage.PlanningPokerExport;
 import defectPackage.DefectLoggerExport;
 import effortPackage.EffortLoggerExport;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 import privacyPackage.PrivacyPane;
 
 /**
- * @author Raeed Azom
+ * @author Raeed Azom, Jay Patel
  * Main class for implementing the EffortLogger prototype.
  */
 public class MainlineGUIHandler extends Application {
@@ -24,6 +25,11 @@ public class MainlineGUIHandler extends Application {
 	 */
 	@Override
 	public void start(Stage mainStage) throws Exception {
+
+		// Initialize data handlers
+		Data Data = new Data();
+		LogManager logManager = new LogManager(Data);
+
 		tabPane = new TabPane();
 		// Initialization of each prototype scene, they are then loaded onto tabs
 		PlanningPokerExport ppExp = new PlanningPokerExport();
@@ -38,6 +44,7 @@ public class MainlineGUIHandler extends Application {
 		Tab tab3 = new Tab("EffortLogger", effortLogger);
 		Tab tab4 = new Tab("DefectLogger", defectLogger);
 		tabPane.getTabs().addAll(tab1, tab2, tab3, tab4);
+
 		// Setting up formatting through spaces and anchorpane
 		AnchorPane pane = new AnchorPane();
 		AnchorPane.setTopAnchor(tabPane, 15.0);
@@ -45,6 +52,7 @@ public class MainlineGUIHandler extends Application {
 		AnchorPane.setRightAnchor(tabPane, 15.0);
 		AnchorPane.setLeftAnchor(tabPane, 15.0);
 		pane.getChildren().addAll(tabPane);
+
 		// Show scene
 		Scene scene = new Scene(pane, 1500, 750);
 		mainStage.setScene(scene);

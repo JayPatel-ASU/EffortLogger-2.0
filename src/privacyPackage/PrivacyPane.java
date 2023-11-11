@@ -32,7 +32,7 @@ public class PrivacyPane extends HBox {
         texts = new TextField[2];
 		// Creation of the leftmost box - userBox, which contanis inputs and user settings.
 		VBox userBox = new VBox();
-		Text textTitle = new Text("Data Entry");
+		Text textTitle = new Text("DataPackage.Data Entry");
         textTitle.setStyle("-fx-font-size: 18px;");
         // Saves input textfields to a array for later use
 		inputData = new TextField[9];
@@ -86,15 +86,15 @@ public class PrivacyPane extends HBox {
 		debugSettings.getChildren().add(viewNames);
 		texts[0] = new TextField("1");
 		texts[0].textProperty().addListener(ListenerGenerator.numberTextListener(texts[0]));
-		HBox temp = new HBox(new Label("Data Viewing Threshold: "), texts[0]);
+		HBox temp = new HBox(new Label("DataPackage.Data Viewing Threshold: "), texts[0]);
 		debugSettings.getChildren().add(temp);
 		debugSettings.getChildren().add(new Label("More Settings To Be Implemented Later"));
 		debugBox.getChildren().add(debugSettings);
-		// Data manipulation buttons, which allow you to save and clear data using listeners
-		sendData = new Button("Send Data");
+		// DataPackage.Data manipulation buttons, which allow you to save and clear data using listeners
+		sendData = new Button("Send DataPackage.Data");
 		sendData.setOnAction(ListenerGenerator.addDataListener(managerView, boxes, texts, inputData));
 		debugBox.getChildren().add(sendData);
-		clearData = new Button("Clear Data");
+		clearData = new Button("Clear DataPackage.Data");
 		clearData.setOnAction(ListenerGenerator.clearDataListener(managerView));
 		debugBox.getChildren().add(clearData);
 		// Debug config, which lets the user customize batch generation options
@@ -108,7 +108,7 @@ public class PrivacyPane extends HBox {
 		texts[1].textProperty().addListener(ListenerGenerator.numberTextListener(texts[1]));
 		temp = new HBox(new Label("Batch Size: "), texts[1]);
 		debugConfig.getChildren().add(temp);
-		boxes[2] = new CheckBox("Randomize Data");
+		boxes[2] = new CheckBox("Randomize DataPackage.Data");
 		debugConfig.getChildren().add(boxes[2]);
 		debugBox.getChildren().add(debugConfig);
 
