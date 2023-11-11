@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="489.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defectPackage.DefectLoggerController">
+   <children>
+      <Label layoutX="31.0" layoutY="68.0" text="1. Select the Project">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="139.0" text="2.b Select one fo the following defects to make it the Current Defect or press &quot;Create a New Defect&quot;">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="334.0" layoutY="67.0" text="2.a. Clear this Project's Defect Log">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="216.0" text="3. Define or update the following Current Defect attributes: ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Separator layoutX="-43.0" layoutY="42.0" prefHeight="11.0" prefWidth="645.0" />
+      <Label layoutX="223.0" layoutY="14.0" text="Defect Console">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="34.0" layoutY="383.0" text="4. Press the &quot;Update the Current Defect&quot; button to save the changes made above.">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button id="updateDefectButton" fx:id="updateDefectButton" layoutX="202.0" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#onUpdateDefectClick" prefHeight="25.0" prefWidth="198.0" text="Update the Current Defect" />
+      <Button id="clrLogButton" fx:id="clrLogButton" layoutX="388.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#clearLogOnClick" prefHeight="22.0" prefWidth="107.0" text="Clear Log" />
+      <ListView id="projectList" fx:id="projectList" layoutX="164.0" layoutY="66.0" prefHeight="64.0" prefWidth="138.0" />
+      <ListView id="existingDefectList" fx:id="existingDefectList" layoutX="45.0" layoutY="165.0" prefHeight="34.0" prefWidth="214.0" />
+      <Label layoutX="52.0" layoutY="240.0" text="Defect Name" />
+      <Label layoutX="352.0" layoutY="239.0" text="Status: " />
+      <Label layoutX="390.0" layoutY="239.0" text="N/A" />
+      <Button id="createDefectButton" fx:id="newDefectButton" layoutX="352.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#createNewDefect" prefHeight="25.0" prefWidth="198.0" text="Create a New Defect" />
+      <TextField id="defectName" fx:id="defectName" layoutX="50.0" layoutY="260.0" prefHeight="25.0" prefWidth="158.0" />
+      <TextField id="defectDescription" fx:id="defectDescription" layoutX="46.0" layoutY="323.0" prefHeight="50.0" prefWidth="514.0" />
+      <Label layoutX="45.0" layoutY="303.0" text="Defect Symptoms or Cause/Resolution" />
+      <Label id="updatedLabel" fx:id="updatedLabel" layoutX="223.0" layoutY="448.0" text="Defect log has been updated." visible="false" />
+   </children>
+</AnchorPane>

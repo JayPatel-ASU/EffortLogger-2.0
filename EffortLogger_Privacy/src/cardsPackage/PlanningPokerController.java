@@ -1,30 +1,38 @@
-package application;
+package cardsPackage;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import application.User.Status;
-import application.Session.SessionStatus;
+import cardsPackage.Session.SessionStatus;
+import cardsPackage.User.Status;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 
 public class PlanningPokerController {
-	
+
 	// ****************************
 	// Session
 	private Session session;
-	
-	
+
+
 	public void setSession(Session session) {
 		this.session = session;
 	}
-	
+
 	// ************* UI ELEMENTS ******************************
-	
+
 	// General Stuff
 	@FXML
 	private VBox VBox; // The window the application is in
@@ -38,7 +46,7 @@ public class PlanningPokerController {
 	private Menu menuButton2; // "Edit"
 	@FXML
 	private Menu menuButton3; // "Help"
-	
+
 	// Card deck
 	@FXML
 	private GridPane cardGrid; // holds the card deck buttons
@@ -66,7 +74,7 @@ public class PlanningPokerController {
 	private Button cardButton11;
 	@FXML
 	private Button cardButton12;
-	
+
 	// Card Selection confirmation
 	@FXML
 	private VBox confirmVBox; // Holds the selected card and confirm button
@@ -75,7 +83,7 @@ public class PlanningPokerController {
 	@FXML
 	private Button confirmButton; // Confirms/locks in the users selection
 
-	
+
 	// Topics Queue
 	@FXML
 	private VBox topicsQueueVBox; // Holds all the elements of the queue
@@ -89,7 +97,7 @@ public class PlanningPokerController {
 	private Button topicsQueueButton; // Button for removing topic from queue
 	@FXML
 	private Label topicsQueueLabel; // Title of the topic displayed in queue
-	
+
 	// Voting Box
 	@FXML
 	private BorderPane votingBorderPane;
@@ -107,7 +115,7 @@ public class PlanningPokerController {
 	private Label userVoteLabel;
 	@FXML
 	private Label userNameLabel;
-	
+
 	// Current Topic
 	@FXML
 	private VBox titleVBox;
@@ -115,7 +123,7 @@ public class PlanningPokerController {
 	private Label titleLabel;
 	@FXML
 	private Label descriptionLabel;
-	
+
 	// Results
 	@FXML
 	private Label resultsLabel;
@@ -127,9 +135,9 @@ public class PlanningPokerController {
 	private Label highestLabel;
 	@FXML
 	private Button revealAction1;
-	
+
 	// ****** METHODS *********
-	
+
 	@FXML
 	protected void onCardSelect1() {
 		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
@@ -226,7 +234,7 @@ public class PlanningPokerController {
 			updateSelection();
 		}
 	}
-	
+
 	// Updates the number in the confirmation box
 	@FXML
 	protected void updateSelection() {
@@ -239,7 +247,7 @@ public class PlanningPokerController {
 			}
 		}
 	}
-	
+
 	// Updates the user's selection in the user table
 	@FXML
 	protected void updateConfirmedSelection() {
@@ -249,7 +257,7 @@ public class PlanningPokerController {
 			userVoteLabel.setText("...");
 		}
 	}
-	
+
 	// Confirms the user's choice
 	@FXML
 	protected void onConfirmClick() {
@@ -259,7 +267,7 @@ public class PlanningPokerController {
 		updateConfirmedSelection();
 		updateVotingLabel();
 	}
-	
+
 	// Checks if all users in the room are confirmed
 	@FXML
 	protected boolean checkIfAllConfirmed() {
@@ -270,11 +278,11 @@ public class PlanningPokerController {
 		}
 		return true;
 	}
-	
+
 	// Update voting message
 	@FXML
 	protected void updateVotingLabel() {
-		if (checkIfAllConfirmed() == true) {
+		if (checkIfAllConfirmed()) {
 			session.setSessionState(SessionStatus.REVEALING);
 			messageVotingLabel.setText("Revealing Cards");
 			updateResults();
@@ -282,7 +290,7 @@ public class PlanningPokerController {
 			messageVotingLabel.setText("Waiting for selection...");
 		}
 	}
-	
+
 	// Update Results section
 	@FXML
 	protected void updateResults() {
@@ -303,9 +311,9 @@ public class PlanningPokerController {
 		}
 		session.setSessionState(SessionStatus.COMPLETED);
 	}
-	
+
 	// ********** POST RESULTS BUTTONS ***********
-	
+
 	// Next topic
 	@FXML
 	protected void action1() {
@@ -315,7 +323,7 @@ public class PlanningPokerController {
 			Update();
 		}
 	}
-	
+
 	// Revote
 	@FXML
 	protected void action2() {
@@ -324,11 +332,9 @@ public class PlanningPokerController {
 			Update();
 		}
 	}
-	
+
 	// Sets up all the labels
 	public void initialize() {
-		System.out.println(session.getSessionState());
-
 		if(session != null) {
 			session.setSessionState(SessionStatus.WAITING);
 			session.popTopic(); // Set current topic from queue
@@ -337,21 +343,19 @@ public class PlanningPokerController {
 			updateVotingLabel();
 			//updateResults();
 			userNameLabel.setText(session.getHost().getUserName());
-			
+
 			// Setting current story and description
-			if (session.getCurrentStory() != null) { 
+			if (session.getCurrentStory() != null) {
 				titleLabel.setText(session.getCurrentStory().getTitle());
 				descriptionLabel.setText(session.getCurrentStory().getDescription());
 			}
-			System.out.println(session.getSessionState());
-
 		}
 	}
-	
+
 	public void Update() {
 		if(session != null) {
 			// Setting current story and description
-			if (session.getCurrentStory() != null) { 
+			if (session.getCurrentStory() != null) {
 				titleLabel.setText(session.getCurrentStory().getTitle());
 				descriptionLabel.setText(session.getCurrentStory().getDescription());
 			}
@@ -360,6 +364,5 @@ public class PlanningPokerController {
 			updateVotingLabel();
 			//updateResults();
 		}
-		System.out.println(session.getSessionState());
 	}
 }
