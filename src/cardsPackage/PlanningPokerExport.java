@@ -8,14 +8,16 @@ import javafx.scene.Parent;
 public class PlanningPokerExport {
 	private FXMLLoader sceneLoader;
 
-	public PlanningPokerExport() {
+	public PlanningPokerExport(Session session) {
 		sceneLoader = new FXMLLoader(getClass().getResource("CardMechanismUI.fxml"));
 		PlanningPokerController controller = new PlanningPokerController();
         sceneLoader.setController(controller);
-        controller.setSession(CardsMain.initSession());
+        controller.setSession(session);
 	}
 
 	public Parent getScene() throws IOException {
 		return sceneLoader.load();
+
 	}
+
 }

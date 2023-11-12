@@ -1,6 +1,8 @@
 package cardsPackage;
 
+import dataPackage.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,17 @@ import javafx.scene.layout.VBox;
 
 public class PlanningPokerController {
 
+	Data data;
+	LogManager logManager;
+
 	// ****************************
 	// Session
 	private Session session;
+
+	private double average;
+	private double median;
+	private double highestFrequency;
+	private String title;
 
 
 	public void setSession(Session session) {
@@ -32,24 +42,7 @@ public class PlanningPokerController {
 	}
 
 	// ************* UI ELEMENTS ******************************
-
-	// General Stuff
-	@FXML
-	private VBox VBox; // The window the application is in
-	@FXML
-	private AnchorPane anchorPane; // Child of VBox, parent to everything else except menu items
-	@FXML
-	private MenuBar menuBar; // Menu at top of app
-	@FXML
-	private Menu menuButton1; // "File"
-	@FXML
-	private Menu menuButton2; // "Edit"
-	@FXML
-	private Menu menuButton3; // "Help"
-
 	// Card deck
-	@FXML
-	private GridPane cardGrid; // holds the card deck buttons
 	@FXML
 	private Button cardButton1; // Buttons are labeled with their value. Ex: "0", "1/2", "13", etc.
 	@FXML
@@ -77,11 +70,11 @@ public class PlanningPokerController {
 
 	// Card Selection confirmation
 	@FXML
-	private VBox confirmVBox; // Holds the selected card and confirm button
-	@FXML
 	private Label selectedCard; // Displays selected card value
 	@FXML
 	private Button confirmButton; // Confirms/locks in the users selection
+	@FXML
+	private Label currentUserLabel; // Current user that is selecting a value
 
 
 	// Topics Queue
@@ -112,13 +105,33 @@ public class PlanningPokerController {
 	@FXML
 	private VBox userVoteVBox;
 	@FXML
-	private Label userVoteLabel;
+	private Label userVoteLabel1;
 	@FXML
-	private Label userNameLabel;
+	private Label userNameLabel1;
+	@FXML
+	private Label userNameLabel2;
+	@FXML
+	private Label userNameLabel3;
+	@FXML
+	private Label userNameLabel4;
+	@FXML
+	private Label userNameLabel5;
+	@FXML
+	private Label userNameLabel6;
+	@FXML
+	private Label userNameLabel7;
+	@FXML
+	private Label userNameLabel8;
+	@FXML
+	private Label userNameLabel9;
+	@FXML
+	private Label userNameLabel10;
+	@FXML
+	private Label userNameLabel11;
+	@FXML
+	private Label userNameLabel12;
 
 	// Current Topic
-	@FXML
-	private VBox titleVBox;
 	@FXML
 	private Label titleLabel;
 	@FXML
@@ -252,9 +265,9 @@ public class PlanningPokerController {
 	@FXML
 	protected void updateConfirmedSelection() {
 		if(session.getHost().getStatus() == Status.CONFIRMED) {
-			userVoteLabel.setText(Double.toString(session.getHost().getSelectedCard().getValue()));
+			userVoteLabel1.setText(Double.toString(session.getHost().getSelectedCard().getValue()));
 		} else {
-			userVoteLabel.setText("...");
+			userVoteLabel1.setText("...");
 		}
 	}
 
@@ -279,6 +292,24 @@ public class PlanningPokerController {
 		return true;
 	}
 
+	// Update names of participants
+	@FXML
+	protected void updateNames() {
+		// Create an array or list of all your labels for easier access
+		Label[] labels = new Label[] {
+				userNameLabel1, userNameLabel2, userNameLabel3, userNameLabel4,
+				userNameLabel5, userNameLabel6, userNameLabel7, userNameLabel8
+		};
+
+		// Iterate through the list of participants and update each label
+		List<User> participants = session.getParticipants();
+		for (int i = 0; i < labels.length; i++) {
+				labels[i].setText("User " + String.valueOf(i + 1));
+		}
+		if (session.getCurrentUser()!= null)
+			currentUserLabel.setText(session.getCurrentUser().getUserName());
+
+	}
 	// Update voting message
 	@FXML
 	protected void updateVotingLabel() {
@@ -299,17 +330,21 @@ public class PlanningPokerController {
 			for (User participant : session.getParticipants()) {
 				results.add(participant.getSelectedCard());
 			}
-			averageLabel.setText("Average: " + session.calculateAverage(results));
-			medianLabel.setText("Median: " + session.calculateMedian(results));
-			highestLabel.setText("Highest Frequency: " + session.mostCommonValue(results));
+			average = session.calculateAverage(results);
+			median = session.calculateMedian(results);
+			highestFrequency = session.mostCommonValue(results);
+			averageLabel.setText("Average: " + String.valueOf(average));
+			medianLabel.setText("Median: " + String.valueOf(median));
+			highestLabel.setText("Highest Frequency: " + String.valueOf(highestFrequency));
 			resultsLabel.setText("Results:");
+			session.setSessionState(SessionStatus.COMPLETED);
 		} else {
 			averageLabel.setText("Average: ...");
 			medianLabel.setText("Median: ...");
 			highestLabel.setText("Highest Frequency: ...");
 			resultsLabel.setText("Waiting for Results...");
 		}
-		session.setSessionState(SessionStatus.COMPLETED);
+		//session.setSessionState(SessionStatus.COMPLETED);
 	}
 
 	// ********** POST RESULTS BUTTONS ***********
@@ -321,6 +356,8 @@ public class PlanningPokerController {
 			session.reset();
 			session.popTopic();
 			Update();
+
+			//data.storeEstimation(session.getSessionId(), title, average, median, highestFrequency);
 		}
 	}
 
@@ -334,7 +371,17 @@ public class PlanningPokerController {
 	}
 
 	// Sets up all the labels
-	public void initialize() {
+	public void initialize() throws IOException{
+		data = new Data();
+		logManager = new LogManager(data);
+		ArrayList <String> topics = data.getDefinitions(0);
+
+		for (int i = 0; i < topics.size(); i++){
+			//[Whatever the name of ur topics list is].get().add(topic.get(i));
+			UserStory story = new UserStory(topics.get(i), "");
+			session.addStory(story);
+		}
+
 		if(session != null) {
 			session.setSessionState(SessionStatus.WAITING);
 			session.popTopic(); // Set current topic from queue
@@ -342,7 +389,10 @@ public class PlanningPokerController {
 			updateConfirmedSelection();
 			updateVotingLabel();
 			//updateResults();
-			userNameLabel.setText(session.getHost().getUserName());
+			//userNameLabel1.setText(session.getHost().getUserName());
+			userNameLabel1.setText(session.getParticipants().get(0).getUserName());
+			updateNames();
+
 
 			// Setting current story and description
 			if (session.getCurrentStory() != null) {
@@ -362,7 +412,10 @@ public class PlanningPokerController {
 			updateSelection();
 			updateConfirmedSelection();
 			updateVotingLabel();
+			updateNames();
 			//updateResults();
+
+
 		}
 	}
 }

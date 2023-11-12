@@ -24,7 +24,9 @@ public class CardsMain extends Application {
 			// Create the controller instance and set session
             PlanningPokerController controller = new PlanningPokerController();
             loader.setController(controller);
-            controller.setSession(initSession());  // Pass session to controller
+            //controller.setSession(initSession());  // Pass session to controller
+
+
 
             Parent root = loader.load();
 

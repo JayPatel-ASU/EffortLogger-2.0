@@ -19,6 +19,7 @@ public class Session {
 	private UserStory currentTopic; // Topic that participants will be voting on
 	private List<User> participants; // List of participants in the session
 	private User host; // User that created the session. Might have access to session settings and such
+	private User currentUser; // current user that is voting
 	private SessionStatus sessionState; // Players are voting, cards are being revealed, reveal/discussion is complete, etc.
 	private Timer currentTime; // Timer could be used for voting, discussion time, etc.
 	private List<UserStory> storyQueue; // List of topics that will be addressed during the session
@@ -36,6 +37,7 @@ public class Session {
 		this.storyQueue = new ArrayList<>();
 		this.cardDeck = cardDeck;
 		addParticipant(host);
+		setCurrentUser(host);
 	}
 
 	public void Update() {
@@ -91,6 +93,12 @@ public class Session {
 	        }
 	    }
 	    return true;
+	}
+
+	public void updateCurrentUser() {
+		if (currentUser.getStatus() == User.Status.CONFIRMED){
+			currentUser = participants.get(participants.indexOf(currentUser) + 1);
+		}
 	}
 
 	public void addParticipant(User user) {
@@ -210,6 +218,9 @@ public class Session {
     public void setHost(User host) {
         this.host = host;
     }
+
+	public User getCurrentUser() { return currentUser; }
+	public void setCurrentUser(User currentUser) {this.currentUser = currentUser; }
 
     public SessionStatus getSessionState() {
         return sessionState;
