@@ -1,11 +1,10 @@
 package mainlinePackage;
 
-import cardsPackage.Session;
-import cardsPackage.StartSessionExport;
+import cardsPackage.*;
+import consolePackage.*;
 import dataPackage.*;
-import cardsPackage.PlanningPokerExport;
-import defectPackage.DefectLoggerExport;
-import effortPackage.EffortLoggerExport;
+import defectPackage.*;
+import effortPackage.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -43,18 +42,26 @@ public class MainlineGUIHandler extends Application {
 
 		tabPane = new TabPane();
 		// Initialization of each prototype scene, they are then loaded onto tabs
+		EffortConsoleExport ecExp = new EffortConsoleExport();
 		StartSessionExport ssExp = new StartSessionExport(); // start session
-		EffortLoggerExport elExp = new EffortLoggerExport();
+		//EffortLoggerExport elExp = new EffortLoggerExport();
 		DefectLoggerExport dlExp = new DefectLoggerExport();
-		Parent startSession = ssExp.getScene(); // start session scene
+
+		// Start session scenes for each piece of functionality
+		Parent effortConsole = ecExp.getScene();
+		Parent startSession = ssExp.getScene();
 		Parent empPrivacy = new PrivacyPane();
-		Parent effortLogger = elExp.getScene();
+		//Parent effortLogger = elExp.getScene();
 		Parent defectLogger = dlExp.getScene();
-		Tab tab1 = new Tab("Planning Poker", startSession);
-		Tab tab2 = new Tab("Employee Privacy", empPrivacy);
-		Tab tab3 = new Tab("EffortLogger", effortLogger);
-		Tab tab4 = new Tab("DefectLogger", defectLogger);
-		tabPane.getTabs().addAll(tab1, tab2, tab3, tab4);
+
+		// Initialize each tab
+		Tab tab0 = new Tab("Effort Console", effortConsole);
+		Tab tab1 = new Tab("DefectLogger", defectLogger);
+		Tab tab2 = new Tab("Planning Poker", startSession);
+		//Tab tab3 = new Tab("Employee Privacy", empPrivacy);
+		//Tab tab3 = new Tab("EffortLogger", effortLogger);
+
+		tabPane.getTabs().addAll(tab0, tab1, tab2);
 
 		// Setting up formatting through spaces and anchorpane
 		AnchorPane pane = new AnchorPane();
@@ -65,22 +72,21 @@ public class MainlineGUIHandler extends Application {
 		pane.getChildren().addAll(tabPane);
 
 		// Show scene
-		Scene scene = new Scene(pane, 1500, 750);
+		Scene scene = new Scene(pane, 830, 750);
 		mainStage.setScene(scene);
 		mainStage.show();
 	}
 
 	public void switchToPlanningPoker(Session session) throws IOException {
-		Tab startSessionTab = tabPane.getTabs().get(0);
+		Tab startSessionTab = tabPane.getTabs().get(2);
 		tabPane.getTabs().remove(startSessionTab); // Remove start session tab
 
 		// Creating the new planning poker tab
 		PlanningPokerExport ppExp = new PlanningPokerExport(session);
 		Parent planningPoker = ppExp.getScene();
 		Tab planningPokerTab = new Tab("Planning Poker", planningPoker);
-		tabPane.getTabs().add(0, planningPokerTab);
+		tabPane.getTabs().add(2, planningPokerTab);
 		tabPane.getSelectionModel().select(planningPokerTab); // Switch to the Planning Poker tab
-
 	}
 
 	public static void main(String[] args) {
