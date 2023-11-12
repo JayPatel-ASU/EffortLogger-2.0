@@ -111,6 +111,16 @@ public class Data {
     }*/
 
     /**
+     *
+     * Description: Gets number of logs for a specific project
+     * @param projectNum
+     * @return
+     */
+    public int getNumLogs(int projectNum) {
+        return logData.get(projectNum).size();
+    }
+
+    /**
      * TODO REMOVE PRINT FUNCTIONS
      */
     void printLogData() {
