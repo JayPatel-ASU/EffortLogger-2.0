@@ -48,8 +48,8 @@ public class DefectLoggerController {
     @FXML
     protected void initialize() {
         userData = new TestData();
-        projectList.getItems().add(userData.getProjectName());
-        existingDefectList.getItems().add(userData.getDefectName());
+        //projectList.getItems().add(userData.getProjectName());
+        //existingDefectList.getItems().add(userData.getDefectName());
     }
 
     /**
