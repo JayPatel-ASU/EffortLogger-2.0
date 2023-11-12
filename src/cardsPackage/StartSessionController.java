@@ -82,12 +82,13 @@ public class StartSessionController {
 
     private List<User> generateParticipants(int participantCount){
         List<User> participants = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             if (i < 8) {
                 String userId = String.valueOf(i + 1);
                 String userName = "User " + String.valueOf(i + 1);
                 User user = new User(userId, userName, User.Role.PARTICIPANT);
                 participants.add(user);
+                System.out.println(userName);
             } else {
                 participants.add(null);
             }

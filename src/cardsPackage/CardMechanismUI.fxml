@@ -42,6 +42,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox fx:id="VBox" prefHeight="356.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
@@ -78,7 +79,10 @@
             <VBox fx:id="confirmVBox" layoutX="320.0" layoutY="336.0" prefHeight="149.0" prefWidth="100.0">
                <children>
                   <Label fx:id="currentUserLabel" alignment="CENTER" prefHeight="43.0" prefWidth="100.0" text="..." />
-                  <Label fx:id="selectedCard" alignment="CENTER" prefHeight="183.0" prefWidth="105.0" text="&lt;card.getValue()&gt;" />
+                  <Label fx:id="selectedCard" alignment="CENTER" prefHeight="183.0" prefWidth="105.0" text="&lt;card.getValue()&gt;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
                   <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmClick" onMouseClicked="#onConfirmClick" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
                </children>
             </VBox>
@@ -105,7 +109,10 @@
                <top>
                   <HBox fx:id="votingHBox" prefHeight="24.0" prefWidth="298.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="messageVotingLabel" alignment="CENTER" prefHeight="24.0" prefWidth="273.0" text="Waiting for Users' Selections..." />
+                        <Label fx:id="messageVotingLabel" alignment="CENTER" prefHeight="24.0" prefWidth="273.0" text="Waiting for Users' Selections...">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                </top>
@@ -178,22 +185,25 @@
                <children>
                   <VBox prefHeight="55.0" prefWidth="184.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="217.0" text="User Story:" underline="true" />
-                        <Label fx:id="titleLabel" alignment="TOP_LEFT" prefHeight="48.0" prefWidth="184.0" text="Title" />
+                        <Label prefHeight="26.0" prefWidth="184.0" text="User Story:" underline="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="titleLabel" alignment="TOP_LEFT" prefHeight="48.0" prefWidth="184.0" text="Title">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="51.0" prefWidth="184.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="213.0" text="Key Words:" underline="true" />
-                        <Label fx:id="descriptionLabel" alignment="TOP_LEFT" prefHeight="34.0" prefWidth="201.0" text="Description" />
-                     </children>
-                  </VBox>
-                  <Label fx:id="resultsLabel" alignment="CENTER" prefHeight="24.0" prefWidth="214.0" text="Waiting for Results..." />
+                  <Label fx:id="resultsLabel" alignment="BOTTOM_CENTER" prefHeight="75.0" prefWidth="184.0" text="Waiting for Results...">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                   <Label fx:id="averageLabel" prefHeight="29.0" prefWidth="209.0" text="Average:" />
                   <Label fx:id="medianLabel" prefHeight="32.0" prefWidth="192.0" text="Median:" />
                   <Label fx:id="highestLabel" prefHeight="32.0" prefWidth="225.0" text="Highest Frequency:" />
                   <Button fx:id="revealAction1" mnemonicParsing="false" onAction="#action1" onMouseClicked="#action1" prefHeight="25.0" prefWidth="190.0" text="Next Topic" />
-                  <Button fx:id="revealAction2" mnemonicParsing="false" onAction="#action2" onMouseClicked="#action2" prefHeight="25.0" prefWidth="192.0" text="Revote" />
+                  <Button fx:id="revealAction2" alignment="CENTER" mnemonicParsing="false" onAction="#action2" onMouseClicked="#action2" prefHeight="25.0" prefWidth="192.0" text="Revote" />
                </children>
             </VBox>
       </children>

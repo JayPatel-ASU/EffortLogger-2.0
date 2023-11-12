@@ -134,8 +134,7 @@ public class PlanningPokerController {
 	// Current Topic
 	@FXML
 	private Label titleLabel;
-	@FXML
-	private Label descriptionLabel;
+
 
 	// Results
 	@FXML
@@ -285,6 +284,7 @@ public class PlanningPokerController {
 	@FXML
 	protected boolean checkIfAllConfirmed() {
 		for (User user : session.getParticipants()) {
+			System.out.println();
 			if (user.getStatus() != Status.CONFIRMED) {
 				return false;
 			}
@@ -394,20 +394,18 @@ public class PlanningPokerController {
 			updateNames();
 
 
-			// Setting current story and description
+			// Setting current story
 			if (session.getCurrentStory() != null) {
 				titleLabel.setText(session.getCurrentStory().getTitle());
-				descriptionLabel.setText(session.getCurrentStory().getDescription());
 			}
 		}
 	}
 
 	public void Update() {
 		if(session != null) {
-			// Setting current story and description
+			// Setting current story
 			if (session.getCurrentStory() != null) {
 				titleLabel.setText(session.getCurrentStory().getTitle());
-				descriptionLabel.setText(session.getCurrentStory().getDescription());
 			}
 			updateSelection();
 			updateConfirmedSelection();
