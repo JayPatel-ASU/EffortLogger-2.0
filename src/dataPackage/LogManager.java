@@ -182,6 +182,39 @@ public class LogManager {
         reader.close(); // Done reading from file, close reader
     }
 
+    public void addLog(Data Data, int projectNum, int logNum, String log) throws IOException{
+
+        File oldName = new File("effortlogs.csv");
+        File temp = new File("temp.csv");
+
+        writer = new BufferedWriter(new FileWriter("temp.csv", true));
+        reader = new BufferedReader(new BufferedReader(new FileReader(LOGFILE)));
+
+        int lineToOverwrite = projectNum*1000 + 3 + logNum;
+
+        String currentLine = reader.readLine();
+        int lineCount = 0;
+
+        while((currentLine != null)) {
+
+            lineCount++;
+            if (lineCount == lineToOverwrite) {
+                writer.write(log);
+            }
+            else {
+                writer.write(currentLine);
+            }
+            writer.newLine();
+            currentLine = reader.readLine();
+        }
+        writer.close();
+        reader.close();
+
+        file.delete();
+        temp.renameTo(oldName);
+        file = temp;
+    }
+
     /**
      * deleteLog()
      * Description:
