@@ -3,12 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="575.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defectPackage.DefectLoggerController">
+<AnchorPane prefHeight="712.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defectPackage.DefectLoggerController">
    <children>
       <Label layoutX="43.0" layoutY="81.0" text="1. Select the Project">
          <font>
@@ -36,28 +37,53 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="503.0" text="4. Press the &quot;Update the Current Defect&quot; button to save the changes made above.">
+      <Label layoutX="37.0" layoutY="595.0" text="4. Press the &quot;Update the Current Defect&quot; button to save the changes made above.">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button id="updateDefectButton" fx:id="updateDefectButton" layoutX="257.0" layoutY="536.0" mnemonicParsing="false" onMouseClicked="#onUpdateDefectClick" prefHeight="25.0" prefWidth="198.0" text="Update the Current Defect" />
+      <Button id="updateDefectButton" fx:id="updateDefectButton" layoutX="266.0" layoutY="632.0" mnemonicParsing="false" onMouseClicked="#onUpdateDefectClick" prefHeight="43.0" prefWidth="241.0" text="Update the Current Defect">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
       <Button id="clrLogButton" fx:id="clrLogButton" layoutX="492.0" layoutY="109.0" mnemonicParsing="false" onMouseClicked="#clearLogOnClick" prefHeight="43.0" prefWidth="241.0" text="Clear Log">
          <font>
             <Font size="16.0" />
          </font></Button>
-      <Label layoutX="96.0" layoutY="296.0" text="Defect Name" />
-      <Label layoutX="360.0" layoutY="328.0" text="Status: " />
-      <Label layoutX="470.0" layoutY="328.0" prefHeight="0.0" prefWidth="22.0" text="N/A" />
-      <Button id="createDefectButton" fx:id="newDefectButton" layoutX="492.0" layoutY="196.0" mnemonicParsing="false" onMouseClicked="#createNewDefect" prefHeight="43.0" prefWidth="241.0" text="Create a New Defect">
+      <Label layoutX="96.0" layoutY="296.0" text="Defect Name">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Button id="createDefectButton" fx:id="newDefectButton" layoutX="492.0" layoutY="196.0" mnemonicParsing="false" onMouseClicked="#createNewDefectOnClick" prefHeight="43.0" prefWidth="241.0" text="Create a New Defect">
          <font>
             <Font size="16.0" />
          </font></Button>
-      <TextField id="defectName" fx:id="defectName" layoutX="96.0" layoutY="324.0" prefHeight="25.0" prefWidth="158.0" />
-      <TextField id="defectDescription" fx:id="defectDescription" layoutX="55.0" layoutY="440.0" prefHeight="50.0" prefWidth="514.0" />
-      <Label layoutX="50.0" layoutY="394.0" text="Defect Symptoms or Cause/Resolution" />
+      <TextField id="defectName" fx:id="defectName" layoutX="96.0" layoutY="324.0" prefHeight="25.0" prefWidth="248.0" />
+      <TextField id="defectDescription" fx:id="defectDescription" layoutX="96.0" layoutY="385.0" prefHeight="50.0" prefWidth="629.0" />
+      <Label layoutX="96.0" layoutY="360.0" text="Defect Symptoms or Cause/Resolution">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
       <Label id="updatedLabel" fx:id="updatedLabel" layoutX="223.0" layoutY="448.0" text="Defect log has been updated." visible="false" />
-      <ComboBox layoutX="85.0" layoutY="118.0" prefHeight="25.0" prefWidth="256.0" />
-      <ComboBox layoutX="85.0" layoutY="205.0" prefHeight="25.0" prefWidth="256.0" />
+      <ComboBox fx:id="projectList" layoutX="85.0" layoutY="118.0" prefHeight="25.0" prefWidth="256.0" />
+      <ComboBox fx:id="defectList" layoutX="85.0" layoutY="205.0" prefHeight="25.0" prefWidth="256.0" />
+      <ListView fx:id="injectSteps" layoutX="96.0" layoutY="485.0" prefHeight="87.0" prefWidth="177.0" />
+      <ListView fx:id="removedSteps" layoutX="322.0" layoutY="486.0" prefHeight="87.0" prefWidth="177.0" />
+      <ListView fx:id="defectCategory" layoutX="551.0" layoutY="486.0" prefHeight="87.0" prefWidth="177.0" />
+      <Label layoutX="96.0" layoutY="457.0" text="Step when Injected">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="322.0" layoutY="457.0" text="Step when removed">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="552.0" layoutY="457.0" text="Defect Category">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
