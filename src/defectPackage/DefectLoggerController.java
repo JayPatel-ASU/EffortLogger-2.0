@@ -7,6 +7,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import privacyPackage.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,9 +44,9 @@ public class DefectLoggerController {
     @FXML
     private Label updatedLabel;
 
-    Data data;
+    private Data data;
 
-    LogManager logManager;
+    private LogManager logManager;
 
     /**
      * Method: initialize()
@@ -64,7 +66,7 @@ public class DefectLoggerController {
         }
 
         // Initialize injection steps list
-        // TODO -- update to store variable locations on , FIX
+        // TODO -- update to store variable locations, FIX
         ArrayList<String> steps = data.getDefinitions(1);
         for (int i = 22; i < 26; i++){
             injectSteps.getItems().add(steps.get(i));
@@ -79,7 +81,6 @@ public class DefectLoggerController {
         for (int i = 0; i < defects.size(); i++) {
             defectCategory.getItems().add(defects.get(i));
         }
-
     }
 
     /**
@@ -87,18 +88,41 @@ public class DefectLoggerController {
      * Description: Contains logic when the "Update the defect" button is clicked
      */
     @FXML
-    protected void onUpdateDefectClick() {
+    protected void onUpdateDefectClick() throws IOException{
+
+        data = new Data();
+        logManager = new LogManager(data);
 
         String dName =  defectName.getText();
         String desc = defectDescription.getText();
 
         String project = projectList.getValue();
+        String log = formatLog(project);
+
+        int logNum = data.getNumLogs(getProjectNum(project)) + 1;
+        defectList.getItems().set(defectList.getSelectionModel().getSelectedIndex(), dName);
+
+        logManager.addLog(data, getProjectNum(project), logNum, log);
+
+    }
+
+    private String formatLog(String project) {
+
+        String dName =  defectName.getText();
+
+        String desc = defectDescription.getText();
+
         String injectStep = injectSteps.getSelectionModel().getSelectedItem();
         String removeStep = removedSteps.getSelectionModel().getSelectedItem();
         String defectCat = defectCategory.getSelectionModel().getSelectedItem();
+        // Get the project number
+        String logNum = Integer.toString(data.getNumLogs(getProjectNum(project)) + 1);
 
-        defectList.getItems().set(defectList.getSelectionModel().getSelectedIndex(), dName);
+        // Store all pieces of data in a string
+        String log = ",,,,,,,,,," + logNum + "," + dName + "," + desc + "," + injectStep + "," + removeStep + "," + defectCat
+                + "," + "Open" + "," + "N/A";
 
+        return log;
     }
 
     /**
@@ -118,5 +142,16 @@ public class DefectLoggerController {
     protected void clearLogOnClick() {
         defectList.getItems().clear();
     }
+    public int getProjectNum(String projectName) {
 
+        // Init project num and array that holds all project names
+        int projectNum = 0;
+        ArrayList<String> projectNames = data.getDefinitions(0);
+
+        for (int i = 0; i < projectNames.size(); i++) {
+            if (projectName.equals(projectNames.get(i)))
+                projectNum = i;
+        }
+        return projectNum;
+    }
 }

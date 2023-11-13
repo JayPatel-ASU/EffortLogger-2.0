@@ -69,7 +69,7 @@
       <ComboBox fx:id="defectList" layoutX="85.0" layoutY="205.0" prefHeight="25.0" prefWidth="256.0" />
       <ListView fx:id="injectSteps" layoutX="96.0" layoutY="485.0" prefHeight="87.0" prefWidth="177.0" />
       <ListView fx:id="removedSteps" layoutX="322.0" layoutY="486.0" prefHeight="87.0" prefWidth="177.0" />
-      <ListView fx:id="defectCategory" layoutX="551.0" layoutY="486.0" prefHeight="87.0" prefWidth="177.0" />
+      <ListView fx:id="defectCategory" layoutX="569.0" layoutY="486.0" prefHeight="87.0" prefWidth="177.0" />
       <Label layoutX="96.0" layoutY="457.0" text="Step when Injected">
          <font>
             <Font name="System Bold" size="16.0" />
