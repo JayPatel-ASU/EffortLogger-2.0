@@ -4,7 +4,6 @@ import cardsPackage.*;
 import consolePackage.*;
 import dataPackage.*;
 import defectPackage.*;
-import effortPackage.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -44,14 +43,12 @@ public class MainlineGUIHandler extends Application {
 		// Initialization of each prototype scene, they are then loaded onto tabs
 		EffortConsoleExport ecExp = new EffortConsoleExport();
 		StartSessionExport ssExp = new StartSessionExport(); // start session
-		//EffortLoggerExport elExp = new EffortLoggerExport();
 		DefectLoggerExport dlExp = new DefectLoggerExport();
 
 		// Start session scenes for each piece of functionality
 		Parent effortConsole = ecExp.getScene();
 		Parent startSession = ssExp.getScene();
 		Parent empPrivacy = new PrivacyPane();
-		//Parent effortLogger = elExp.getScene();
 		Parent defectLogger = dlExp.getScene();
 
 		// Initialize each tab
@@ -59,7 +56,6 @@ public class MainlineGUIHandler extends Application {
 		Tab tab1 = new Tab("DefectLogger", defectLogger);
 		Tab tab2 = new Tab("Planning Poker", startSession);
 		//Tab tab3 = new Tab("Employee Privacy", empPrivacy);
-		//Tab tab3 = new Tab("EffortLogger", effortLogger);
 
 		tabPane.getTabs().addAll(tab0, tab1, tab2);
 
