@@ -4,6 +4,7 @@ import cardsPackage.*;
 import consolePackage.*;
 import dataPackage.*;
 import defectPackage.*;
+import editorPackage.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,25 +40,31 @@ public class MainlineGUIHandler extends Application {
 		Data Data = new Data();
 		LogManager logManager = new LogManager(Data);
 
+		// Initialize tabPane + properties
 		tabPane = new TabPane();
+		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
 		// Initialization of each prototype scene, they are then loaded onto tabs
 		EffortConsoleExport ecExp = new EffortConsoleExport();
-		StartSessionExport ssExp = new StartSessionExport(); // start session
+		StartSessionExport ssExp = new StartSessionExport();
 		DefectLoggerExport dlExp = new DefectLoggerExport();
+		LogEditorExport leExp = new LogEditorExport();
 
 		// Start session scenes for each piece of functionality
 		Parent effortConsole = ecExp.getScene();
 		Parent startSession = ssExp.getScene();
 		Parent empPrivacy = new PrivacyPane();
 		Parent defectLogger = dlExp.getScene();
+		Parent LogEditor = leExp.getScene();
 
 		// Initialize each tab
 		Tab tab0 = new Tab("Effort Console", effortConsole);
 		Tab tab1 = new Tab("DefectLogger", defectLogger);
-		Tab tab2 = new Tab("Planning Poker", startSession);
-		//Tab tab3 = new Tab("Employee Privacy", empPrivacy);
+		Tab tab2 = new Tab("Log Editor", LogEditor);
+		Tab tab3 = new Tab("Planning Poker", startSession);
+		//Tab tab4 = new Tab("Employee Privacy", empPrivacy);
 
-		tabPane.getTabs().addAll(tab0, tab1, tab2);
+		tabPane.getTabs().addAll(tab0, tab1, tab2, tab3);
 
 		// Setting up formatting through spaces and anchorpane
 		AnchorPane pane = new AnchorPane();
@@ -70,6 +77,7 @@ public class MainlineGUIHandler extends Application {
 		// Show scene
 		Scene scene = new Scene(pane, 830, 750);
 		mainStage.setScene(scene);
+		mainStage.setResizable(false);
 		mainStage.show();
 	}
 
