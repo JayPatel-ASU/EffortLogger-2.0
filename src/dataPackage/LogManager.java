@@ -1,13 +1,13 @@
-package dataPackage;
-
-import java.io.*;
-import java.util.ArrayList;
-
 /**
  * LogManager
  * Description: Class that interacts with effortlogs.csv and definitions.ini
  * Author: Jay Patel
  */
+
+package dataPackage;
+
+import java.io.*;
+import java.util.ArrayList;
 
 public class LogManager {
 
@@ -104,18 +104,6 @@ public class LogManager {
     }
 
     /**
-     * updateLog(int, ArrayList<String>)
-     * @param newLog TODO UPDATE COMMENT
-     */
-    public void updateLog(int projectNum, ArrayList<String> newLog) throws IOException{
-        //TODO - FINISH METHOD
-        int startPosition = (projectNum - 1) * 1000;
-        writer = new BufferedWriter(new FileWriter(LOGFILE, true));
-
-        writer.close();
-    }
-
-    /**
      * parseLogData(Data)
      * Description: Parses data from effortlogs.csv and stores it in the Data object
      * @param Data - Object that contains effort data
@@ -182,7 +170,15 @@ public class LogManager {
         reader.close(); // Done reading from file, close reader
     }
 
-    public void addLog(Data Data, int projectNum, int logNum, String log) throws IOException{
+    /**
+     *
+     * @param Data
+     * @param projectNum
+     * @param logNum
+     * @param log
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
+    public void updateLog(Data Data, int projectNum, int logNum, String log) throws IOException {
 
         File oldName = new File("effortlogs.csv");
         File temp = new File("temp.csv");
@@ -216,15 +212,15 @@ public class LogManager {
     }
 
     /**
-     * deleteLog()
-     * Description:
+     *
+     * @param Data
+     * @param projectNum
+     * @param logNum
+     * @throws IOException
      */
-    public void deleteLog() {
-        // TODO - LOG DELETION
-        // Clear line, then replace with just empty string
-        // Remove from data array
-        // Decrement #entries from project effort log counter
-        // ",,,,,,,,,,,,,,,,,"
+    public void deleteLog(Data Data, int projectNum, int logNum) throws IOException {
+       String emptyLog = ",,,,,,,,,,,,,,,,,";
+       updateLog(Data,projectNum, logNum, emptyLog);
     }
 
 }

@@ -125,7 +125,7 @@ public class EffortConsoleController {
         // Format all pieces of data into a string, then store the information in effortlogs.csv
         String log = formatLog(project);
 
-        logManager.addLog(data, getProjectNum(project), logNum, log);
+        logManager.updateLog(data, getProjectNum(project), logNum, log);
 
         // Reset logmanager, data TODO TEMP FIX
         data = new Data();

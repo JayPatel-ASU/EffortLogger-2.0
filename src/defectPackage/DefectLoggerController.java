@@ -102,7 +102,7 @@ public class DefectLoggerController {
         int logNum = data.getNumLogs(getProjectNum(project)) + 1;
         defectList.getItems().set(defectList.getSelectionModel().getSelectedIndex(), dName);
 
-        logManager.addLog(data, getProjectNum(project), logNum, log);
+        logManager.updateLog(data, getProjectNum(project), logNum, log);
 
     }
 
