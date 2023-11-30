@@ -77,21 +77,16 @@ public class StartSessionController {
         List<User> participants = generateParticipants(8);
 
         Session session = new Session(sessionNameField.getText(), participants.get(0), cardDeck);
+        session.setParticipants(participants);
         mainlineGUIHandler.switchToPlanningPoker(session);
     }
 
     private List<User> generateParticipants(int participantCount){
         List<User> participants = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            if (i < 8) {
-                String userId = String.valueOf(i + 1);
-                String userName = "User " + String.valueOf(i + 1);
-                User user = new User(userId, userName, User.Role.PARTICIPANT);
-                participants.add(user);
-                System.out.println(userName);
-            } else {
-                participants.add(null);
-            }
+        for (int i = 0; i < participantCount; i++)
+        {
+            User newUser = new User(String.valueOf(i) ,"User_" + (i+1), User.Role.PARTICIPANT);
+            participants.add(newUser);
         }
         return participants;
     }

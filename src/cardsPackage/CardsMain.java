@@ -85,6 +85,7 @@ public class CardsMain extends Application {
 		//New session with user1 as the host and using cardDeck as each user's card deck
 		Session session = new Session("Room1", user1, cardDeck);
 
+
 		/*
 		// Adding other users to the session
 		session.addParticipant(user2);

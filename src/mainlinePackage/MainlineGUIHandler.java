@@ -82,14 +82,14 @@ public class MainlineGUIHandler extends Application {
 	}
 
 	public void switchToPlanningPoker(Session session) throws IOException {
-		Tab startSessionTab = tabPane.getTabs().get(2);
+		Tab startSessionTab = tabPane.getTabs().get(3);
 		tabPane.getTabs().remove(startSessionTab); // Remove start session tab
 
 		// Creating the new planning poker tab
 		PlanningPokerExport ppExp = new PlanningPokerExport(session);
 		Parent planningPoker = ppExp.getScene();
 		Tab planningPokerTab = new Tab("Planning Poker", planningPoker);
-		tabPane.getTabs().add(2, planningPokerTab);
+		tabPane.getTabs().add(3, planningPokerTab);
 		tabPane.getSelectionModel().select(planningPokerTab); // Switch to the Planning Poker tab
 	}
 

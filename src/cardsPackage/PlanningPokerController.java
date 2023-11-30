@@ -77,35 +77,30 @@ public class PlanningPokerController {
 	private Label currentUserLabel; // Current user that is selecting a value
 
 
-	// Topics Queue
-	@FXML
-	private VBox topicsQueueVBox; // Holds all the elements of the queue
-	@FXML
-	private ScrollPane topicsScrollPane; // Holds the list of topics in the queue
-	@FXML
-	private AnchorPane topicsAnchorPane; // child within the scroll pane to hold topics
-	@FXML
-	private HBox topicsQueueTemplate; // Template for each topic, topics contain a label and button
-	@FXML
-	private Button topicsQueueButton; // Button for removing topic from queue
-	@FXML
-	private Label topicsQueueLabel; // Title of the topic displayed in queue
-
 	// Voting Box
-	@FXML
-	private BorderPane votingBorderPane;
-	@FXML
-	private HBox votingHBox;
+
 	@FXML
 	private Label messageVotingLabel;
 	@FXML
-	private Label votingTimerLabel;
-	@FXML
-	private GridPane votingGridPane;
-	@FXML
-	private VBox userVoteVBox;
-	@FXML
 	private Label userVoteLabel1;
+	@FXML
+	private Label userVoteLabel2;
+	@FXML
+	private Label userVoteLabel3;
+	@FXML
+	private Label userVoteLabel4;
+	@FXML
+	private Label userVoteLabel5;
+	@FXML
+	private Label userVoteLabel6;
+	@FXML
+	private Label userVoteLabel7;
+	@FXML
+	private Label userVoteLabel8;
+
+	@FXML
+	private List<Label> selectedLabels;
+
 	@FXML
 	private Label userNameLabel1;
 	@FXML
@@ -122,14 +117,6 @@ public class PlanningPokerController {
 	private Label userNameLabel7;
 	@FXML
 	private Label userNameLabel8;
-	@FXML
-	private Label userNameLabel9;
-	@FXML
-	private Label userNameLabel10;
-	@FXML
-	private Label userNameLabel11;
-	@FXML
-	private Label userNameLabel12;
 
 	// Current Topic
 	@FXML
@@ -152,97 +139,97 @@ public class PlanningPokerController {
 
 	@FXML
 	protected void onCardSelect1() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(0);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect2() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(1);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect3() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(2);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect4() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(3);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect5() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(4);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect6() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(5);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect7() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(6);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect8() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(7);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect9() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(8);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect10() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(9);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect11() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(10);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
 	@FXML
 	protected void onCardSelect12() {
-		if(session.getHost().getStatus() != (Status.CONFIRMED)) {
+		if(session.getCurrentUser().getStatus() != (Status.CONFIRMED)) {
 			Card selectedCard = session.getCardDeck().get(11);
-			session.getHost().setSelectedCard(selectedCard);
+			session.getCurrentUser().setSelectedCard(selectedCard);
 			updateSelection();
 		}
 	}
@@ -250,10 +237,10 @@ public class PlanningPokerController {
 	// Updates the number in the confirmation box
 	@FXML
 	protected void updateSelection() {
-		if (session.getHost().getStatus() != Status.CONFIRMED) {
-			session.getHost().setStatus(Status.SELECTED);
-			if(session.getHost().getSelectedCard() != null) {
-				selectedCard.setText(Double.toString(session.getHost().getSelectedCard().getValue()));
+		if (session.getCurrentUser().getStatus() != Status.CONFIRMED) {
+			session.getCurrentUser().setStatus(Status.SELECTED);
+			if(session.getCurrentUser().getSelectedCard() != null) {
+				selectedCard.setText(Double.toString(session.getCurrentUser().getSelectedCard().getValue()));
 			} else {
 				selectedCard.setText("...");
 			}
@@ -263,8 +250,19 @@ public class PlanningPokerController {
 	// Updates the user's selection in the user table
 	@FXML
 	protected void updateConfirmedSelection() {
-		if(session.getHost().getStatus() == Status.CONFIRMED) {
-			userVoteLabel1.setText(Double.toString(session.getHost().getSelectedCard().getValue()));
+		selectedLabels = new ArrayList<>();
+		selectedLabels.add(userVoteLabel1);
+		selectedLabels.add(userVoteLabel2);
+		selectedLabels.add(userVoteLabel3);
+		selectedLabels.add(userVoteLabel4);
+		selectedLabels.add(userVoteLabel5);
+		selectedLabels.add(userVoteLabel6);
+		selectedLabels.add(userVoteLabel7);
+		selectedLabels.add(userVoteLabel8);
+
+		if(session.getCurrentUser().getStatus() == Status.CONFIRMED) {
+			int currentIndex = session.getParticipants().indexOf(session.getCurrentUser());
+			selectedLabels.get(currentIndex).setText(Double.toString(session.getCurrentUser().getSelectedCard().getValue()));
 		} else {
 			userVoteLabel1.setText("...");
 		}
@@ -273,11 +271,17 @@ public class PlanningPokerController {
 	// Confirms the user's choice
 	@FXML
 	protected void onConfirmClick() {
-		if(session.getHost().getSelectedCard() != null) {
-			session.getHost().confirmCard();
+		if(session.getCurrentUser().getSelectedCard() != null) {
+			session.getCurrentUser().confirmCard();
 		}
 		updateConfirmedSelection();
 		updateVotingLabel();
+		session.updateCurrentUser();
+		currentUserLabel.setText(session.getCurrentUser().getUserName());
+		System.out.println(session.getCurrentUser().getUserName());
+		for (User user : session.getParticipants()){
+			//System.out.println(user.getUserName() + " " + user.getRole());
+		}
 	}
 
 	// Checks if all users in the room are confirmed
@@ -306,8 +310,6 @@ public class PlanningPokerController {
 		for (int i = 0; i < labels.length; i++) {
 				labels[i].setText("User " + String.valueOf(i + 1));
 		}
-		if (session.getCurrentUser()!= null)
-			currentUserLabel.setText(session.getCurrentUser().getUserName());
 
 	}
 	// Update voting message
@@ -355,8 +357,20 @@ public class PlanningPokerController {
 		if (session.getSessionState() == SessionStatus.COMPLETED) {
 			session.reset();
 			session.popTopic();
+			session.setCurrentUser(session.getParticipants().get(0));
 			Update();
-
+			selectedLabels = new ArrayList<>();
+			selectedLabels.add(userVoteLabel1);
+			selectedLabels.add(userVoteLabel2);
+			selectedLabels.add(userVoteLabel3);
+			selectedLabels.add(userVoteLabel4);
+			selectedLabels.add(userVoteLabel5);
+			selectedLabels.add(userVoteLabel6);
+			selectedLabels.add(userVoteLabel7);
+			selectedLabels.add(userVoteLabel8);
+			for (Label label : selectedLabels){
+				label.setText("...");
+			}
 			//data.storeEstimation(session.getSessionId(), title, average, median, highestFrequency);
 		}
 	}
@@ -367,6 +381,20 @@ public class PlanningPokerController {
 		if (session.getSessionState() == SessionStatus.COMPLETED) {
 			session.reset();
 			Update();
+			session.setCurrentUser(session.getParticipants().get(0));
+			Update();
+			selectedLabels = new ArrayList<>();
+			selectedLabels.add(userVoteLabel1);
+			selectedLabels.add(userVoteLabel2);
+			selectedLabels.add(userVoteLabel3);
+			selectedLabels.add(userVoteLabel4);
+			selectedLabels.add(userVoteLabel5);
+			selectedLabels.add(userVoteLabel6);
+			selectedLabels.add(userVoteLabel7);
+			selectedLabels.add(userVoteLabel8);
+			for (Label label : selectedLabels){
+				label.setText("...");
+			}
 		}
 	}
 
@@ -389,9 +417,10 @@ public class PlanningPokerController {
 			updateConfirmedSelection();
 			updateVotingLabel();
 			//updateResults();
-			//userNameLabel1.setText(session.getHost().getUserName());
+			//userNameLabel1.setText(session.getCurrentUser().getUserName());
 			userNameLabel1.setText(session.getParticipants().get(0).getUserName());
 			updateNames();
+			currentUserLabel.setText(session.getCurrentUser().getUserName());
 
 
 			// Setting current story

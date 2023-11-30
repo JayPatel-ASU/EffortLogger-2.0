@@ -1,11 +1,10 @@
 package cardsPackage;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.floor;
 
 public class Session {
 
@@ -163,20 +162,19 @@ public class Session {
 
 	// Returns the median of all chosen card values
 	public double calculateMedian(List<Card> cards) {
-		if (cards == null || cards.isEmpty()) {
-			return 0;
-		}
+		List<Double> values = new ArrayList<>();
+		int index;
 
-		List<Double> values = cards.stream()
-								.map(Card::getValue)
-								.sorted()
-								.collect(Collectors.toList());
-		int size = values.size();
-		if (size % 2 == 1) {
-			return values.get(size / 2);
-		} else {
-			return (values.get((size - 1) / 2) + values.get(size / 2)) / 2.0;
+		for (Card card : cards){
+			values.add(card.getValue());
 		}
+		Collections.sort(values);
+
+		if (values.size() % 2 != 0)
+			index = (values.size() - 1) / 2;
+		else
+			index = values.size() / 2;
+		return values.get(index);
 	}
 
 	// Remove a topic from the queue
