@@ -1,6 +1,5 @@
 package cardsPackage;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,7 +84,6 @@ public class CardsMain extends Application {
 		//New session with user1 as the host and using cardDeck as each user's card deck
 		Session session = new Session("Room1", user1, cardDeck);
 
-
 		/*
 		// Adding other users to the session
 		session.addParticipant(user2);
@@ -104,7 +102,6 @@ public class CardsMain extends Application {
 		//session.popTopic();
 		return session;
 	}
-
 
 	public static void main(String[] args) {
 		launch(args);

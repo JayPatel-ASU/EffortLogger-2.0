@@ -278,7 +278,7 @@ public class PlanningPokerController {
 		updateVotingLabel();
 		session.updateCurrentUser();
 		currentUserLabel.setText(session.getCurrentUser().getUserName());
-		System.out.println(session.getCurrentUser().getUserName());
+		//System.out.println(session.getCurrentUser().getUserName());
 		for (User user : session.getParticipants()){
 			//System.out.println(user.getUserName() + " " + user.getRole());
 		}
@@ -288,7 +288,7 @@ public class PlanningPokerController {
 	@FXML
 	protected boolean checkIfAllConfirmed() {
 		for (User user : session.getParticipants()) {
-			System.out.println();
+			//System.out.println();
 			if (user.getStatus() != Status.CONFIRMED) {
 				return false;
 			}
@@ -441,7 +441,6 @@ public class PlanningPokerController {
 			updateVotingLabel();
 			updateNames();
 			//updateResults();
-
 
 		}
 	}

@@ -85,7 +85,7 @@ public class StartSessionController {
         List<User> participants = new ArrayList<>();
         for (int i = 0; i < participantCount; i++)
         {
-            User newUser = new User(String.valueOf(i) ,"User_" + (i+1), User.Role.PARTICIPANT);
+            User newUser = new User(String.valueOf(i) ,"User " + (i+1), User.Role.PARTICIPANT);
             participants.add(newUser);
         }
         return participants;
