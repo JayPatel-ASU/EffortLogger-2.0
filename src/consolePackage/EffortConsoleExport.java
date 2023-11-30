@@ -4,6 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import java.io.IOException;
 
+/**
+ * @author Jay Patel
+ * Export class for Effort Console
+ */
 public class EffortConsoleExport {
     private FXMLLoader sceneLoader;
 

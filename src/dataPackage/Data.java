@@ -80,8 +80,8 @@ public class Data {
     /**
      * storeLogData(int, String)
      * Description: Stores log data for each specified line in logfile.csv
-     * @param projectNum
-     * @param currentLine
+     * @param projectNum - Int containing the project number
+     * @param currentLine - String containing the current line
      */
     public void storeLogData(int projectNum, String currentLine) {
         logData.get(projectNum).add(currentLine);
@@ -99,8 +99,8 @@ public class Data {
 
     /**
      * getLogData(int)
-     * @param projectNum- Int containing which project to get logs for
-     * @return -
+     * @param projectNum - Int containing which project to get logs for
+     * @return - Arraylist - Returns an Arraylist containing log data
      */
     public ArrayList<String> getLogData(int projectNum){
 
@@ -115,7 +115,7 @@ public class Data {
     }
 
     /**
-     *
+     * getNumLogs(int)
      * Description: Gets number of logs for a specific project
      * @param projectNum - Int containing which project to get logs for
      * @return - Int containing the total # of logs for the specified project
@@ -123,31 +123,6 @@ public class Data {
     public int getNumLogs(int projectNum) {
         return logData.get(projectNum).size();
     }
-
-    /**
-     * TODO REMOVE PRINT FUNCTIONS
-     */
-    void printLogData() {
-        for (int i = 0; i < logData.size(); i++) {
-            for (int j = 0; j < logData.get(i).size(); j++) {
-                System.out.println(logData.get(i).get(j));
-            }
-        }
-    }
-
-    /**
-     *
-     */
-    void printDefData() {
-        for (int i = 0; i < definitions.size(); i++) {
-            for (int j = 0; j < definitions.get(i).size(); j++) {
-                System.out.println(definitions.get(i).get(j) + " ");
-            }
-            System.out.println("---------------------------------------------");
-        }
-    }
-
-
 
     /**
      * getProjectNum(String)

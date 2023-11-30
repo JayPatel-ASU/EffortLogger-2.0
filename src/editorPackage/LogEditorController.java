@@ -48,8 +48,9 @@ public class LogEditorController {
     private TextField stopField;
 
     /**
-     *
-     * @throws IOException
+     * initialize()
+     * Description: Contains logic when LogEditor initializes
+     * @throws IOException - Exception thrown if file does not exist in directory
      */
     @FXML
     protected void initialize() throws IOException {
@@ -66,8 +67,8 @@ public class LogEditorController {
     /**
      * initComboBox(Data, int)
      * Description:
-     * @param data
-     * @param category
+     * @param data - Data object used for retrieving info for each combo box
+     * @param category - Int representing the effort category
      */
     @FXML
     private void initComboBox(Data data, int category) {
@@ -85,6 +86,11 @@ public class LogEditorController {
         }
     }
 
+    /**
+     * onClearLogsClicked()
+     * Description: Method that contains logic for when the clear logs button is clicked
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
     @FXML
     public void onClearLogsClicked() throws IOException{
         // Get selected project's name & corresponding project number
@@ -98,9 +104,13 @@ public class LogEditorController {
         // Reset logmanager, data
         data = new Data();
         logManager = new LogManager(data);
-
     }
 
+    /**
+     * onUpdateEntryClicked()
+     * Description: Method that contains logic for when the update entry button is clicked
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
     @FXML
     public void onUpdateEntryClicked() throws IOException{
 
@@ -125,6 +135,13 @@ public class LogEditorController {
         updateLogComboBox();
     }
 
+    /**
+     * formatLog(String)
+     * Description: Formats a log. Called before updating a log to effortlogs.csv
+     * @param project - Contains the name of the active project
+     * @return - String containing the formatted log
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
     private String formatLog(String project) throws IOException{
 
         // Grab information from text fields/combo boxes
@@ -153,8 +170,9 @@ public class LogEditorController {
     }
 
     /**
-     *
-     * @throws IOException
+     * onDeleteEntryClicked()
+     * Description: Method that contains logic for when the delete entry button is clicked
+     * @throws IOException - Exception thrown if file does not exist in directory
      */
     @FXML
     public void onDeleteEntryClicked() throws IOException{

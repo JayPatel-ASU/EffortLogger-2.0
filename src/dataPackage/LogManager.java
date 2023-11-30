@@ -143,7 +143,7 @@ public class LogManager {
      * @param Data - Object that definition data will be stored to
      * @throws IOException - Exception thrown if file does not exist in directory
      */
-    public void parseDefinitions(Data Data) throws IOException{
+    public void parseDefinitions(Data Data) throws IOException {
         reader = new BufferedReader(new FileReader(DEFINITIONSFILE)); // Instantiate new reader object
         int categoryNum = 0; // Tracks project number to update
         String currentLine = reader.readLine();
@@ -171,10 +171,11 @@ public class LogManager {
     }
 
     /**
-     *
-     * @param projectNum
-     * @param logNum
-     * @param log
+     * updateLog(int, int, String)
+     * Description: Updates effortlogs.csv with the specified log
+     * @param projectNum - Int containing the project number
+     * @param logNum - Int containing the log number
+     * @param log - String containing the log to be updated
      * @throws IOException - Exception thrown if file does not exist in directory
      */
     public void updateLog(int projectNum, int logNum, String log) throws IOException {
@@ -194,21 +195,26 @@ public class LogManager {
         String currentLine = reader.readLine();
         int lineCount = 0;
 
+        // Loop until the end of the file
         while((currentLine != null)) {
 
             lineCount++;
+            // Write new log when program reaches line to overwrite
             if (lineCount == lineToOverwrite) {
                 writer.write(log);
             }
+            // If not the line we need to overwrite, write from the original log file
             else {
                 writer.write(currentLine);
             }
             writer.newLine();
-            currentLine = reader.readLine();
+            currentLine = reader.readLine(); // Read next line
         }
+        // Close buffered reader/writer
         writer.close();
         reader.close();
 
+        // Rename temp to effortlogs.csv
         file.delete();
         temp.renameTo(oldName);
         file = temp;
@@ -233,23 +239,26 @@ public class LogManager {
 
 
         // Calculation for line to overwrite
-
         String currentLine = reader.readLine();
         int lineCount = 0;
         int projectCount = -1;
 
+        // Loop until end of file is reached
         while((currentLine != null)) {
             lineCount++;
-
+            // If new project line is found, increment project count
             if (currentLine.contains("Effort Log for Project"))
                 projectCount++;
 
+            // Do not clear lines that contain column info
             if (projectCount == projectNum) {
                 if (lineCount % 1000 == 1 || lineCount % 1000 == 2 || lineCount % 1000 == 3)
                     writer.write(currentLine);
+                // Line doesn't contain column info -- write an empty line
                 else
                     writer.write(emptyLine);
             }
+            // Not writing to current project -- copy from original file
             else {
                 writer.write(currentLine);
             }
@@ -268,31 +277,43 @@ public class LogManager {
     }
 
     /**
-     *
-     * @param projectNum
-     * @param logNum
-     * @throws IOException
+     * deleteLog(int, int)
+     * Description: Clears a single log from effortlogs.csv
+     * @param projectNum - Int containing the project number
+     * @param logNum - Int containing the log number
+     * @throws IOException - Exception thrown if file does not exist in directory
      */
     public void deleteLog(int projectNum, int logNum) throws IOException {
        String emptyLog = ",,,,,,,,,,,,,,,,,";
        updateLog(projectNum, logNum, emptyLog);
     }
 
+    /**
+     * getLogNum(int, String)
+     * Description: Retreives the log number for a specific log in effortlogs.csv
+     * @param projectNum - Int containing the project number
+     * @param log - String containing a log from effortlogs.csv
+     * @return - Int - Returns the log number (from effortlogs.csv)
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
     public int getLogNum(int projectNum, String log) throws IOException{
 
+        // Initialize BufferedReader, currentline, and logNum
         reader = new BufferedReader(new BufferedReader(new FileReader(LOGFILE)));
         String currentLine = reader.readLine();
-        int logNum = 0;
+        int logNum = 0; // Will be returned
 
+        // Loop until reader reaches EOF
         while (currentLine != null) {
-            logNum++;
+            logNum++; // Increment log counter for every line
             if (currentLine.equals(log))
-                break;
+                break; // If log is found, break from loop
             else
-                currentLine = reader.readLine();
+                currentLine = reader.readLine(); // Log not found -- read next line
         }
         reader.close();
 
+        // Equation for retrieving correct log number
         logNum = (logNum % ((projectNum + 1) * 1000)) - 3;
 
         return logNum;
