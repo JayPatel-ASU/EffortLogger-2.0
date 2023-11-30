@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @author Jay Patel
- * Main function for defect console UI
+ * Main class for effort console UI
  */
 public class EffortConsole extends Application {
 
