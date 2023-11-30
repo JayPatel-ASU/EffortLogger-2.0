@@ -5,10 +5,8 @@ import javafx.scene.control.*;
 import dataPackage.*;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import privacyPackage.Log;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
@@ -16,12 +14,10 @@ import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-
 /**
  * @author Jay Patel
- *
+ * Controller class that handles Effort Console's UI logic
  */
-
 public class EffortConsoleController {
 
     @FXML
@@ -54,6 +50,11 @@ public class EffortConsoleController {
     @FXML
     private ComboBox<String> planComboBox;
 
+    /**
+     * initialize()
+     * Description: Initializes data fields on Effort Console startup
+     * @throws IOException - Outputs an error if a file w/ the specified pathname already exists (Data/LogManager)
+     */
     @FXML
     protected void initialize() throws IOException {
         // Initialize data & log manager objects
@@ -70,9 +71,9 @@ public class EffortConsoleController {
 
     /**
      * initComboBox(Data, int)
-     * Description:
-     * @param data
-     * @param category
+     * Description: Initializes all combo box fields in Effort Console's UI
+     * @param data - Contains parsed log data
+     * @param category - Determines which category to retrieve data for
      */
     @FXML
     private void initComboBox(Data data, int category) {
@@ -92,6 +93,10 @@ public class EffortConsoleController {
         }
     }
 
+    /**
+     * onStartButtonClicked()
+     * Description: Starts clock & updates UI when the start button is clicked
+     */
     @FXML
     public void onStartButtonClicked() {
         // Start clock on button click
@@ -105,6 +110,11 @@ public class EffortConsoleController {
         clockOn = true; // Set clock on status to true
     }
 
+    /**
+     * onStopButtonClicked()
+     * Description: Stops the clock, updates UI, and updates logs when the stop button is clicked
+     * @throws IOException - Outputs an error if a file w/ the specified pathname already exists (Data/LogManager)
+     */
     @FXML
     public void onStopButtonClicked() throws IOException{
         // If clock is not on, don't do anything -- return
@@ -118,20 +128,27 @@ public class EffortConsoleController {
         clockStatusRectangle.setFill(Color.RED);
         clockStatusText.setText("Clock is stopped");
 
-        //
+        // Get project name and log number
         String project = projectComboBox.getValue();
-        int logNum = data.getNumLogs(getProjectNum(project)) + 1;
+        int logNum = data.getNumLogs(data.getProjectNum(project)) + 1;
 
         // Format all pieces of data into a string, then store the information in effortlogs.csv
         String log = formatLog(project);
 
-        logManager.updateLog(data, getProjectNum(project), logNum, log);
+        // Update logs with new data
+        logManager.updateLog(data.getProjectNum(project), logNum, log);
 
-        // Reset logmanager, data TODO TEMP FIX
+        // Reset logmanager, data
         data = new Data();
         logManager = new LogManager(data);
     }
 
+    /**
+     * formatLog(String)
+     * Description: Formats a log that will be written to log file
+     * @param project - Name of the project that will be logged
+     * @return - String containing formatted log
+     */
     private String formatLog(String project) {
 
         // Calculate difference in time
@@ -142,7 +159,7 @@ public class EffortConsoleController {
         String effortCategory = ECComboBox.getValue();
         String plan = planComboBox.getValue();
         // Get the project number
-        String logNum = Integer.toString(data.getNumLogs(getProjectNum(project)) + 1);
+        String logNum = Integer.toString(data.getNumLogs(data.getProjectNum(project)) + 1);
 
         // Store all pieces of data in a string
         String log = logNum + "," + date.toString() + "," + startTime.toString() + "," + endTime.toString() + "," + deltaTime + "," + LCS + "," + effortCategory
@@ -175,20 +192,4 @@ public class EffortConsoleController {
         return deltaTime;
     }
 
-    public int getProjectNum(String projectName) {
-        // Case: User forgot
-        if (projectName == null) {
-            return 0;
-        }
-
-        // Init project num and array that holds all project names
-        int projectNum = 0;
-        ArrayList<String> projectNames = data.getDefinitions(0);
-
-        for (int i = 0; i < projectNames.size(); i++) {
-            if (projectName.equals(projectNames.get(i)))
-                projectNum = i;
-        }
-        return projectNum;
-    }
 }
