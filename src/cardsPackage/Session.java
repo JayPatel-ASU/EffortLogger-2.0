@@ -96,7 +96,8 @@ public class Session {
 
 	public void updateCurrentUser() {
 		if (currentUser.getStatus() == User.Status.CONFIRMED){
-			currentUser = participants.get(participants.indexOf(currentUser) + 1);
+			int i = (participants.indexOf(currentUser) + 1) % 8;
+			currentUser = participants.get(i);
 		}
 	}
 
