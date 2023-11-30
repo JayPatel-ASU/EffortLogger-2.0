@@ -4,14 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import dataPackage.*;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
-
-import java.time.LocalTime;
-import java.time.LocalDate;
 import java.io.IOException;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -109,8 +102,54 @@ public class LogEditorController {
     }
 
     @FXML
-    public void onUpdateEntryClicked() {
+    public void onUpdateEntryClicked() throws IOException{
 
+        // Initialize project & set up formatted log
+        String project = projectComboBox.getSelectionModel().getSelectedItem();
+        String log = formatLog(project);
+
+        // If project not selected, don't do anything -- return
+        if (project == null || log == null)
+            return;
+
+        // Get project, lognum before updating the log
+        String oldLog = logComboBox.getSelectionModel().getSelectedItem();
+        int projectNum = data.getProjectNum(project);
+        int logNum = logManager.getLogNum(projectNum, oldLog);
+
+        logManager.updateLog(projectNum, logNum, log);
+
+        // Reset logmanager, data
+        data = new Data();
+        logManager = new LogManager(data);
+        updateLogComboBox();
+    }
+
+    private String formatLog(String project) throws IOException{
+
+        // Grab information from text fields/combo boxes
+        String date = dateField.getText();
+        String startTime = startField.getText();
+        String stopTime = stopField.getText();
+
+        // Initialize variables used in combo boxes
+        String oldLog = logComboBox.getSelectionModel().getSelectedItem();
+        String LCStep = LCSComboBox.getSelectionModel().getSelectedItem();
+        String effortCategory = ECComboBox.getSelectionModel().getSelectedItem();
+
+        // If any combo box is null, don't do anything -- return null
+        if (oldLog == null || LCStep == null || effortCategory == null)
+            return null;
+
+        int projectNum = data.getProjectNum(project);
+        String logNum = Integer.toString(logManager.getLogNum(projectNum, oldLog));
+
+        // Received all information -- create formatted log
+        String log = logNum + "," + date + "," + startTime + "," + stopTime + "," + stopTime + "," + LCStep + "," + effortCategory
+                + ",,,,,,,,,,,";
+
+        // Formatting complete - return log
+        return log;
     }
 
     /**

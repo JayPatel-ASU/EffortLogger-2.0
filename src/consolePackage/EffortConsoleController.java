@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.io.IOException;

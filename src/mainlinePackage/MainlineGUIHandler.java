@@ -2,7 +2,7 @@ package mainlinePackage;
 
 import cardsPackage.*;
 import consolePackage.*;
-import dataPackage.*;
+
 import defectPackage.*;
 import editorPackage.*;
 import javafx.application.Application;
@@ -12,7 +12,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import privacyPackage.PrivacyPane;
 
 import java.io.IOException;
 
@@ -37,8 +36,7 @@ public class MainlineGUIHandler extends Application {
 	public void start(Stage mainStage) throws Exception {
 
 		// Initialize data handlers
-		Data Data = new Data();
-		LogManager logManager = new LogManager(Data);
+
 
 		// Initialize tabPane + properties
 		tabPane = new TabPane();
@@ -53,7 +51,6 @@ public class MainlineGUIHandler extends Application {
 		// Start session scenes for each piece of functionality
 		Parent effortConsole = ecExp.getScene();
 		Parent startSession = ssExp.getScene();
-		Parent empPrivacy = new PrivacyPane();
 		Parent defectLogger = dlExp.getScene();
 		Parent LogEditor = leExp.getScene();
 
@@ -62,7 +59,6 @@ public class MainlineGUIHandler extends Application {
 		Tab tab1 = new Tab("DefectLogger", defectLogger);
 		Tab tab2 = new Tab("Log Editor", LogEditor);
 		Tab tab3 = new Tab("Planning Poker", startSession);
-		//Tab tab4 = new Tab("Employee Privacy", empPrivacy);
 
 		tabPane.getTabs().addAll(tab0, tab1, tab2, tab3);
 
