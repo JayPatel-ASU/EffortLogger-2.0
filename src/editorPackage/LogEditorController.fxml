@@ -21,13 +21,13 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="479.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.a. Clear this Project's Effort Logs">
+      <Text layoutX="479.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.a. Clear all of this Project's Effort Logs">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <ComboBox layoutX="43.0" layoutY="131.0" prefHeight="25.0" prefWidth="374.0" />
-      <Button layoutX="515.0" layoutY="126.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="203.0" text="Clear Project Effort Logs">
+      <ComboBox fx:id="projectComboBox" layoutX="43.0" layoutY="131.0" onAction="#ProjComboSetOnAction" prefHeight="25.0" prefWidth="374.0" />
+      <Button fx:id="clearButton" layoutX="527.0" layoutY="126.0" mnemonicParsing="false" onMouseClicked="#onClearLogsClicked" prefHeight="30.0" prefWidth="203.0" text="Clear Project Effort Logs">
          <font>
             <Font size="16.0" />
          </font>
@@ -37,7 +37,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <ComboBox layoutX="49.0" layoutY="216.0" prefHeight="25.0" prefWidth="675.0" />
+      <ComboBox fx:id="logComboBox" layoutX="49.0" layoutY="216.0" prefHeight="25.0" prefWidth="675.0" />
       <Text layoutX="72.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nn. yyyy-mm-dd (hh:mm:ss) &lt;Life Cycle Step&gt;; &lt;Effort Category&gt;; &lt;Details&gt;">
          <font>
             <Font size="16.0" />
@@ -48,15 +48,15 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="107.0" layoutY="348.0" prefHeight="35.0" prefWidth="140.0">
+      <TextField fx:id="dateField" layoutX="107.0" layoutY="348.0" prefHeight="35.0" prefWidth="140.0">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <TextField layoutX="360.0" layoutY="347.0" prefHeight="36.0" prefWidth="153.0">
+      <TextField fx:id="startField" layoutX="360.0" layoutY="347.0" prefHeight="36.0" prefWidth="153.0">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <TextField layoutX="628.0" layoutY="347.0" prefHeight="36.0" prefWidth="140.0">
+      <TextField fx:id="stopField" layoutX="628.0" layoutY="347.0" prefHeight="36.0" prefWidth="140.0">
          <font>
             <Font size="16.0" />
          </font></TextField>
@@ -95,8 +95,8 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <ComboBox layoutX="50.0" layoutY="455.0" prefHeight="25.0" prefWidth="315.0" />
-      <ComboBox layoutX="419.0" layoutY="455.0" prefHeight="25.0" prefWidth="315.0" />
+      <ComboBox fx:id="LCSComboBox" layoutX="50.0" layoutY="455.0" prefHeight="25.0" prefWidth="315.0" />
+      <ComboBox fx:id="ECComboBox" layoutX="419.0" layoutY="455.0" prefHeight="25.0" prefWidth="315.0" />
       <Text layoutX="417.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Effort Category: ">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -112,12 +112,12 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Text>
-      <Button layoutX="89.0" layoutY="562.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="225.0" text="Update this entry">
+      <Button fx:id="updateButton" layoutX="89.0" layoutY="562.0" mnemonicParsing="false" onMouseClicked="#onUpdateEntryClicked" prefHeight="57.0" prefWidth="225.0" text="Update this entry">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="464.0" layoutY="562.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="225.0" text="Delete this entry">
+      <Button fx:id="deleteButton" layoutX="464.0" layoutY="562.0" mnemonicParsing="false" onMouseClicked="#onDeleteEntryClicked" prefHeight="57.0" prefWidth="225.0" text="Delete this entry">
          <font>
             <Font size="16.0" />
          </font>

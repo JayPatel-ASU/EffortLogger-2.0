@@ -172,20 +172,23 @@ public class LogManager {
 
     /**
      *
-     * @param Data
      * @param projectNum
      * @param logNum
      * @param log
      * @throws IOException - Exception thrown if file does not exist in directory
      */
-    public void updateLog(Data Data, int projectNum, int logNum, String log) throws IOException {
+    public void updateLog(int projectNum, int logNum, String log) throws IOException {
 
+        // Buffered read/writer classes can't update an existing file?? Instead, create a temp file and rename
+        // Init file names
         File oldName = new File("effortlogs.csv");
         File temp = new File("temp.csv");
 
+        // Init buffered writer/reader objects
         writer = new BufferedWriter(new FileWriter("temp.csv", true));
         reader = new BufferedReader(new BufferedReader(new FileReader(LOGFILE)));
 
+        // Calculation for line to overwrite
         int lineToOverwrite = projectNum*1000 + 3 + logNum;
 
         String currentLine = reader.readLine();
@@ -212,15 +215,86 @@ public class LogManager {
     }
 
     /**
+     * clearProjectLogs(int)
+     * Description: Clears all logs for a user-specified project
+     * @throws IOException - Exception thrown if files do not exist in directory
+     */
+    public void clearProjectLogs(int projectNum) throws IOException {
+
+        // Init file names, empty string
+        File oldName = new File("effortlogs.csv");
+        File temp = new File("temp.csv");
+
+        String emptyLine = ",,,,,,,,,,,,,,,,,";
+
+        // Init buffered writer/reader objects
+        writer = new BufferedWriter(new FileWriter("temp.csv", true));
+        reader = new BufferedReader(new BufferedReader(new FileReader(LOGFILE)));
+
+
+        // Calculation for line to overwrite
+
+        String currentLine = reader.readLine();
+        int lineCount = 0;
+        int projectCount = -1;
+
+        while((currentLine != null)) {
+            lineCount++;
+
+            if (currentLine.contains("Effort Log for Project"))
+                projectCount++;
+
+            if (projectCount == projectNum) {
+                if (lineCount % 1000 == 1 || lineCount % 1000 == 2 || lineCount % 1000 == 3)
+                    writer.write(currentLine);
+                else
+                    writer.write(emptyLine);
+            }
+            else {
+                writer.write(currentLine);
+            }
+            writer.newLine();
+            currentLine = reader.readLine();
+        }
+
+        // Close reader, writer buffers
+        writer.close();
+        reader.close();
+
+        // Delete old .csv file, & rename temp.csv
+        file.delete();
+        temp.renameTo(oldName);
+        file = temp;
+    }
+
+    /**
      *
-     * @param Data
      * @param projectNum
      * @param logNum
      * @throws IOException
      */
-    public void deleteLog(Data Data, int projectNum, int logNum) throws IOException {
+    public void deleteLog(int projectNum, int logNum) throws IOException {
        String emptyLog = ",,,,,,,,,,,,,,,,,";
-       updateLog(Data,projectNum, logNum, emptyLog);
+       updateLog(projectNum, logNum, emptyLog);
     }
 
+    public int getLogNum(int projectNum, String log) throws IOException{
+
+        reader = new BufferedReader(new BufferedReader(new FileReader(LOGFILE)));
+        String currentLine = reader.readLine();
+        int logNum = 0;
+
+        while (currentLine != null) {
+            logNum++;
+            if (currentLine.equals(log))
+                break;
+            else
+                currentLine = reader.readLine();
+        }
+        reader.close();
+
+        logNum = (logNum % ((projectNum + 1) * 1000)) - 3;
+
+        return logNum;
+    }
 }

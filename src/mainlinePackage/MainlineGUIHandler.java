@@ -74,9 +74,10 @@ public class MainlineGUIHandler extends Application {
 		AnchorPane.setLeftAnchor(tabPane, 15.0);
 		pane.getChildren().addAll(tabPane);
 
-		// Show scene
+		// Various setup options for stage
 		Scene scene = new Scene(pane, 830, 750);
 		mainStage.setScene(scene);
+		mainStage.setTitle("EffortLogger");
 		mainStage.setResizable(false);
 		mainStage.show();
 	}

@@ -99,22 +99,26 @@ public class Data {
 
     /**
      * getLogData(int)
-     * @param projectNum -
+     * @param projectNum- Int containing which project to get logs for
      * @return -
      */
-    /*
     public ArrayList<String> getLogData(int projectNum){
 
-        // Set size of return list
-        ArrayList<String> returnArr = new ArrayList<>(logData.size());
+        // Init array that stores logs
+        ArrayList<String> returnArr = new ArrayList<>();
 
-    }*/
+        // For each definition in category, append info into return array
+        for (int i = 0; i < logData.get(projectNum).size(); i++) {
+            returnArr.add(logData.get(projectNum).get(i));
+        }
+        return returnArr;
+    }
 
     /**
      *
      * Description: Gets number of logs for a specific project
-     * @param projectNum
-     * @return
+     * @param projectNum - Int containing which project to get logs for
+     * @return - Int containing the total # of logs for the specified project
      */
     public int getNumLogs(int projectNum) {
         return logData.get(projectNum).size();
@@ -131,6 +135,9 @@ public class Data {
         }
     }
 
+    /**
+     *
+     */
     void printDefData() {
         for (int i = 0; i < definitions.size(); i++) {
             for (int j = 0; j < definitions.get(i).size(); j++) {
@@ -141,5 +148,24 @@ public class Data {
     }
 
 
-    //public String[] getProjectData(int projectNum) {} //TODO: IMPLEMENT
+
+    /**
+     * getProjectNum(String)
+     * Description: Returns the project number of the parameter
+     * @param projectName - String that contains the project name
+     * @return - Int containing the project number
+     */
+    public int getProjectNum(String projectName) {
+        int projectNum = 0; // Init project num (to be returned)
+
+        // Iterate through definitions array
+        for (int i = 0; i < getDefinitions(0).size(); i++) {
+            // If project name exists in definitions array, return index of project
+            if (projectName == getDefinitions(0).get(i)) {
+                projectNum = i;
+            }
+        }
+        // Return project number
+        return projectNum;
+    }
 }
