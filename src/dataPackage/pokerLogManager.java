@@ -46,9 +46,20 @@ public class pokerLogManager {
      */
     private void createFile() throws IOException{
         file.createNewFile();
+        initializeFile();
     }
 
-    public void addEstimations(String title, String estimation) throws IOException{
+    private void initializeFile() throws IOException{
+        // Init bufferedWriter object
+        writer = new BufferedWriter(new FileWriter(LOGFILE, true));
+        writer.write("Estimations for Planning Poker");
+        writer.newLine();
+        writer.write("session name, user story, average effort value, median effort value, highest frequency effort value");
+        writer.newLine();
+        writer.close();
+    }
+
+    public void addEstimations(String log) throws IOException{
         File oldName = new File("pokerEstimations.csv");
         File temp = new File("temp.csv");
 
@@ -58,7 +69,6 @@ public class pokerLogManager {
         String colNames = "user story, average effort value, median effort value, highest frequency effort value";
 
         String currentLine = reader.readLine();
-        int lineCount = 0;
 
         // Iterate to the end of the file
         while((currentLine != null)) {
@@ -68,11 +78,7 @@ public class pokerLogManager {
         }
 
         // Reached EOF, write new log
-        writer.write(title);
-        writer.newLine();
-        writer.write(colNames);
-        writer.newLine();
-        writer.write(estimation);
+        writer.write(log);
 
         writer.close();
         reader.close();

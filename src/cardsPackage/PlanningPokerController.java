@@ -26,6 +26,7 @@ public class PlanningPokerController {
 
 	Data data;
 	LogManager logManager;
+	pokerLogManager PLM;
 
 	// ****************************
 	// Session
@@ -353,7 +354,8 @@ public class PlanningPokerController {
 
 	// Next topic
 	@FXML
-	protected void action1() {
+	protected void action1() throws IOException{
+		String userStory = titleLabel.getText(); // Get userStory name before its popped
 		if (session.getSessionState() == SessionStatus.COMPLETED) {
 			session.reset();
 			session.popTopic();
@@ -371,8 +373,14 @@ public class PlanningPokerController {
 			for (Label label : selectedLabels){
 				label.setText("...");
 			}
-			//data.storeEstimation(session.getSessionId(), title, average, median, highestFrequency);
+			String log = formatLog(session.getSessionId(), userStory, average, median, highestFrequency);
+			PLM.addEstimations(log);
 		}
+	}
+
+	private String formatLog(String title, String userStory, double average, double median, double highestFrequency) {
+		String log = title + "," + userStory + "," + Double.toString(average) + "," +  Double.toString(median) + "," +  Double.toString(highestFrequency);
+		return log;
 	}
 
 	// Revote
@@ -402,6 +410,8 @@ public class PlanningPokerController {
 	public void initialize() throws IOException{
 		data = new Data();
 		logManager = new LogManager(data);
+		PLM = new pokerLogManager();
+
 		ArrayList <String> topics = data.getDefinitions(0);
 
 		for (int i = 0; i < topics.size(); i++){
