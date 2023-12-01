@@ -55,7 +55,7 @@ public class DefectLoggerController {
     @FXML
     protected void initialize() throws IOException {
 
-        Data data = new Data();
+        data = new Data();
         logManager = new LogManager(data);
 
         // Initialize project combo box
@@ -66,7 +66,6 @@ public class DefectLoggerController {
         }
 
         // Initialize injection steps list
-        // TODO -- update to store variable locations, FIX
         ArrayList<String> steps = data.getDefinitions(1);
         for (int i = 22; i < 26; i++){
             injectSteps.getItems().add(steps.get(i));
@@ -93,17 +92,31 @@ public class DefectLoggerController {
         data = new Data();
         logManager = new LogManager(data);
 
+        String oldName = defectList.getSelectionModel().getSelectedItem();
+
         String dName =  defectName.getText();
         String desc = defectDescription.getText();
 
         String project = projectList.getValue();
+
+        // If any element in defect logger is null, return
+        if (oldName == null || dName == null || desc == null || project == null || defectList.getSelectionModel().getSelectedItem() == null)
+            return;
+
         String log = formatLog(project);
 
-        int logNum = data.getNumLogs(getProjectNum(project)) + 1;
-        defectList.getItems().set(defectList.getSelectionModel().getSelectedIndex(), dName);
+        if (oldName.equals("New Defect")) {
 
-        logManager.updateLog(getProjectNum(project), logNum, log);
+            int logNum = data.getNumLogs(getProjectNum(project)) + 1;
+            defectList.getItems().set(defectList.getSelectionModel().getSelectedIndex(), dName);
 
+            logManager.updateLog(getProjectNum(project), logNum, log);
+        }
+
+        else {
+            int logNum = logManager.getDefectNum(getProjectNum(project), oldName, data);
+            logManager.updateLog(getProjectNum(project), logNum, log);
+        }
     }
 
     private String formatLog(String project) {
@@ -132,6 +145,7 @@ public class DefectLoggerController {
     @FXML
     protected void createNewDefectOnClick() {
         defectList.getItems().add("New Defect");
+        defectList.getSelectionModel().selectLast();
     }
 
     /**
@@ -139,8 +153,27 @@ public class DefectLoggerController {
      * Description: Logic for the clear defect logs button
      */
     @FXML
-    protected void clearLogOnClick() {
-        defectList.getItems().clear();
+    protected void clearLogOnClick() throws IOException{
+        // Get the current log info from logComboBox/projectComboBox
+        String selectedProject = projectList.getSelectionModel().getSelectedItem();
+        String selectedDefect = defectList.getSelectionModel().getSelectedItem();
+
+        // Return if selectedProject or selectedDefect is null
+        if (selectedProject == null || selectedDefect == null)
+            return;
+
+        // Set the projectNum, logNum
+        int projectNum = data.getProjectNum(selectedProject);
+        int logNum = logManager.getDefectNum(projectNum, selectedDefect, data);
+        // Delete the log
+        logManager.deleteLog(projectNum, logNum);
+
+        // Update data and LogManager values
+        data = new Data();
+        logManager = new LogManager(data);
+
+        // Update logComboBox to represent current logs
+        updateDefectList();
     }
     public int getProjectNum(String projectName) {
 
@@ -153,5 +186,50 @@ public class DefectLoggerController {
                 projectNum = i;
         }
         return projectNum;
+    }
+
+    /**
+     * ProjListSetOnAction()
+     * Description: Updates the defect list field when an action is made on the projectList
+     */
+    @FXML
+    public void ProjListSetOnAction() {
+        updateDefectList();
+    }
+
+    private void updateDefectList() {
+        ArrayList<String> names = parseDefectLogs();
+
+        // Clear existing defects from other projects before assigning new values
+        defectList.getItems().clear();
+
+        // Populate log Combo box with entries from logs arrayList
+        for (int i = 0; i < names.size(); i++) {
+            defectList.getItems().add(names.get(i));
+        }
+        defectList.getSelectionModel().selectLast();
+    }
+
+    private ArrayList<String> parseDefectLogs() {
+        // On action, get selected project's number & update corresponding log combo box
+        String selectedProject = projectList.getSelectionModel().getSelectedItem();
+
+        // Get the project number from the definitions array
+        int projectNum = data.getProjectNum(selectedProject);
+
+        //
+        ArrayList<String> defects = data.getDefectData(projectNum);
+        ArrayList<String> returnList = new ArrayList<>();
+
+        for (int i = 0; i < defects.size(); i++) {
+            String current = defects.get(i);
+
+            current = current.replace(",,,,,,,,,,", "");
+            current = current.replace(current.substring(0, current.indexOf(",") + 1), "");
+            current = current.substring(0, current.indexOf(","));
+
+            returnList.add(current);
+        }
+        return returnList;
     }
 }

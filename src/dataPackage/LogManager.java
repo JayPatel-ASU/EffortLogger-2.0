@@ -38,6 +38,9 @@ public class LogManager {
 
         // Read from logfile, store info in Data class
         parseLogData(Data);
+
+        // Read from logfile, store defect info in Data class
+        parseDefectData(Data);
     }
 
     /** Method Declarations **/
@@ -133,6 +136,41 @@ public class LogManager {
             }
             // Store line into data
             Data.storeLogData(projectCounter - 1 , currentLine);
+        }
+        reader.close(); // Done reading from file, close reader
+    }
+
+    /**
+     * parseDefectData(Data)
+     * @param Data - Stores parsed data from logfile
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
+    public void parseDefectData(Data Data) throws IOException {
+        reader = new BufferedReader(new FileReader(LOGFILE)); // Instantiate new reader object
+
+        int projectCounter = 0; // Keeps track of # of projects
+
+        // Loop through every line in .csv file
+        for (int i = 0; i < 10000; i++) {
+            // Read current line, then store for parsing
+            String currentLine = reader.readLine();
+
+            // If current line has column info, no need to parse -- continue
+            if (i % 1000 == 0 || i % 1000 == 1 || i % 1000 == 2) {
+                // Increment project counter every 1000 lines
+                if (i % 1000 == 0)
+                    projectCounter++;
+                continue;
+            }
+
+            // Empty line - no need to parse
+            if (currentLine.equals(",,,,,,,,,,,,,,,,,") || currentLine.isEmpty()) {
+                continue;
+            }
+            // Store line into data
+            if (currentLine.substring(0, 1).equals(",")) {
+                Data.storeDefectData(projectCounter - 1 , currentLine);
+            }
         }
         reader.close(); // Done reading from file, close reader
     }
@@ -307,6 +345,38 @@ public class LogManager {
         while (currentLine != null) {
             logNum++; // Increment log counter for every line
             if (currentLine.equals(log))
+                break; // If log is found, break from loop
+            else
+                currentLine = reader.readLine(); // Log not found -- read next line
+        }
+        reader.close();
+
+        // Equation for retrieving correct log number
+        logNum = (logNum % ((projectNum + 1) * 1000)) - 3;
+
+        return logNum;
+    }
+
+    /**
+     * getDefectNum(int,String,Data)
+     * Description: Retreives the defect number for a specific log in effortlogs.csv
+     * @param projectNum - Int containing the project number
+     * @param logName - String containing the log name
+     * @param data - Contains parsed data
+     * @return - Int containing the defect log number
+     * @throws IOException - Exception thrown if file does not exist in directory
+     */
+    public int getDefectNum(int projectNum, String logName, Data data) throws IOException{
+
+        // Initialize BufferedReader, currentline, and logNum
+        reader = new BufferedReader(new BufferedReader(new FileReader(LOGFILE)));
+        String currentLine = reader.readLine();
+        int logNum = 0; // Will be returned
+
+        // Loop until reader reaches EOF
+        while (currentLine != null) {
+            logNum++; // Increment log counter for every line
+            if (currentLine.contains(logName))
                 break; // If log is found, break from loop
             else
                 currentLine = reader.readLine(); // Log not found -- read next line

@@ -21,7 +21,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="441.0" layoutY="81.0" text="2.a. Clear this Project's Defect Log">
+      <Label layoutX="441.0" layoutY="81.0" text="2.a. Delete this Project's Defect Log">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -46,7 +46,7 @@
          <font>
             <Font size="16.0" />
          </font></Button>
-      <Button id="clrLogButton" fx:id="clrLogButton" layoutX="492.0" layoutY="109.0" mnemonicParsing="false" onMouseClicked="#clearLogOnClick" prefHeight="43.0" prefWidth="241.0" text="Clear Log">
+      <Button id="clrLogButton" fx:id="clrLogButton" layoutX="492.0" layoutY="109.0" mnemonicParsing="false" onMouseClicked="#clearLogOnClick" prefHeight="43.0" prefWidth="241.0" text="Delete Log">
          <font>
             <Font size="16.0" />
          </font></Button>
@@ -65,7 +65,7 @@
             <Font name="System Bold" size="16.0" />
          </font></Label>
       <Label id="updatedLabel" fx:id="updatedLabel" layoutX="223.0" layoutY="448.0" text="Defect log has been updated." visible="false" />
-      <ComboBox fx:id="projectList" layoutX="85.0" layoutY="118.0" prefHeight="25.0" prefWidth="256.0" />
+      <ComboBox fx:id="projectList" layoutX="85.0" layoutY="118.0" onAction="#ProjListSetOnAction" prefHeight="25.0" prefWidth="256.0" />
       <ComboBox fx:id="defectList" layoutX="85.0" layoutY="205.0" prefHeight="25.0" prefWidth="256.0" />
       <ListView fx:id="injectSteps" layoutX="96.0" layoutY="485.0" prefHeight="87.0" prefWidth="177.0" />
       <ListView fx:id="removedSteps" layoutX="322.0" layoutY="486.0" prefHeight="87.0" prefWidth="177.0" />

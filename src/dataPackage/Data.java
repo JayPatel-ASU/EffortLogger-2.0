@@ -13,6 +13,7 @@ public class Data {
     /** Private Class Variables **/
 
     private ArrayList<ArrayList<String>> logData;
+    private ArrayList<ArrayList<String>> defectData;
     private ArrayList<ArrayList<String>> definitions;
 
     /**
@@ -21,6 +22,7 @@ public class Data {
     public Data() {
         initializeLogArray();
         initializeDefArray();
+        initializeDefectArray();
     }
 
     /** Method Declarations **/
@@ -51,6 +53,20 @@ public class Data {
         // Initialize 2nd dimension of each index
         for (int i = 0; i < 7; i++) {
             definitions.add(new ArrayList<>());
+        }
+    }
+
+    /**
+     * initializeDefectArray()
+     * Description: Allocates memory for defects array. Used in constructor
+     */
+    private void initializeDefectArray() {
+        // Init 1st dimension of array (size 10)
+        defectData = new ArrayList<>(10);
+
+        // Initialize 2nd dimension of each index
+        for (int i = 0; i < 10; i++) {
+            defectData.add(new ArrayList<>());
         }
     }
 
@@ -88,6 +104,16 @@ public class Data {
     }
 
     /**
+     * storeDefectData(int, String)
+     * Description: Stores defect data for each specified defect line in logfile.csv
+     * @param projectNum - Int containing the project number
+     * @param currentLine - String containing the current line
+     */
+    public void storeDefectData(int projectNum, String currentLine) {
+        defectData.get(projectNum).add(currentLine);
+    }
+
+    /**
      * storeDefinitionData(int, String)
      * Description: Stores definition data for each specified category in definitions.ini
      * @param category - Int containing which category to store data to
@@ -99,6 +125,7 @@ public class Data {
 
     /**
      * getLogData(int)
+     * Description: Returns an array containing log data for the selected project
      * @param projectNum - Int containing which project to get logs for
      * @return - Arraylist - Returns an Arraylist containing log data
      */
@@ -110,6 +137,23 @@ public class Data {
         // For each definition in category, append info into return array
         for (int i = 0; i < logData.get(projectNum).size(); i++) {
             returnArr.add(logData.get(projectNum).get(i));
+        }
+        return returnArr;
+    }
+
+    /**
+     * getDefectData(int)
+     * Description: Returns an array containing defect data for the selected project
+     * @param projectNum - Int containing which project to get defect logs for
+     * @return - Arraylist - Returns an Arraylist containing defect data
+     */
+    public ArrayList<String> getDefectData(int projectNum) {
+        // Init array that stores logs
+        ArrayList<String> returnArr = new ArrayList<>();
+
+        // For each definition in category, append info into return array
+        for (int i = 0; i < defectData.get(projectNum).size(); i++) {
+            returnArr.add(defectData.get(projectNum).get(i));
         }
         return returnArr;
     }
@@ -136,7 +180,7 @@ public class Data {
         // Iterate through definitions array
         for (int i = 0; i < getDefinitions(0).size(); i++) {
             // If project name exists in definitions array, return index of project
-            if (projectName == getDefinitions(0).get(i)) {
+            if (projectName.equals(getDefinitions(0).get(i))) {
                 projectNum = i;
             }
         }
